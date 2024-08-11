@@ -9,9 +9,6 @@ import software.amazon.awscdk.services.s3.IBucket;
 import software.constructs.Construct;
 import software.amazon.awscdk.services.ec2.*;
 import software.amazon.awscdk.services.iam.*;
-import software.amazon.awscdk.services.s3.deployment.BucketDeployment;
-import software.amazon.awscdk.services.s3.deployment.Source;
-
 
 import java.util.List;
 
@@ -54,7 +51,7 @@ public class InfraStack extends Stack {
 
         // VPC setup
         Vpc vpc = Vpc.Builder.create(this, "MyVpc")
-                .maxAzs(2)  // Default is all Availability Zones in the region
+                .maxAzs(2)
                 .build();
 
         // Security Group setup
@@ -75,23 +72,12 @@ public class InfraStack extends Stack {
                 ))
                 .build();
 
-        // S3 Bucket for JAR file
-        Bucket jarBucket = Bucket.Builder.create(this, "JarBucket")
-                .versioned(true)
-                .build();
-
-        BucketDeployment bucketDeployment = BucketDeployment.Builder.create(this, "DeployJarToS3")
-                .sources(List.of(Source.asset("../assets/function.jar")))
-                .destinationBucket(jarBucket)
-                .build();
-
         // Application Load Balancer setup
         ApplicationLoadBalancer alb = ApplicationLoadBalancer.Builder.create(this, "MyALB")
                 .vpc(vpc)
                 .internetFacing(true)
                 .securityGroup(securityGroup)
                 .build();
-
 
         // Create an EC2 instance
         Instance ec2Instance = Instance.Builder.create(this, "MyEC2Instance")
@@ -103,6 +89,21 @@ public class InfraStack extends Stack {
                 .keyName("my-ec2-keypair") // Make sure to replace with your key pair name
                 .build();
 
+        // Add user data to the EC2 instance to install Java and pull the JAR file from GitHub
+        ec2Instance.addUserData(
+                "#!/bin/bash",
+                "yum update -y",
+                "yum install -y git java-17-amazon-corretto-headless", // Install Git and Java 17
+                "cd /home/ec2-user",
+                "git clone https://github.com/Amanj5486/Appointment.git", // Clone your GitHub repository
+                "cd Appointment/functions", // Navigate to the functions directory
+                "mvn clean package", // Build the project using Maven
+                "java -jar target/functions-1.0-SNAPSHOT.jar" // Run the application
+        );
+
+        // Grant EC2 instance permissions to read from the S3 buckets
+        existingBucket_1.grantRead(ec2Instance);
+        existingBucket.grantRead(ec2Instance);
 
         // Create a target group for the ALB
         ApplicationTargetGroup targetGroup = ApplicationTargetGroup.Builder.create(this, "TargetGroup")
@@ -112,31 +113,12 @@ public class InfraStack extends Stack {
                 .targets(List.of(new InstanceTarget(ec2Instance))) // Use InstanceTarget for the EC2 instance
                 .build();
 
-
         // Create a listener for the ALB
         ApplicationListener listener = alb.addListener("Listener", ApplicationListenerProps.builder()
-                                            .port(80)
-                                            .loadBalancer(alb)
-                                            .defaultTargetGroups(List.of(targetGroup))
-                                            .build());
-
-
-
-        // Add user data to the EC2 instance
-        ec2Instance.addUserData(
-                "#!/bin/bash",
-                "yum update -y",
-                "yum install -y java-17-amazon-corretto-headless", // Install Java 17
-                String.format("aws s3 cp s3://%s/function.jar /home/ec2-user/function.jar", jarBucket.getBucketName()), // Download the JAR file
-                "java -jar /home/ec2-user/function.jar" // Run the application
-        );
-
-
-        // Grant EC2 instance permissions to read from the S3 buckets
-        existingBucket_1.grantRead(ec2Instance);
-        existingBucket.grantRead(ec2Instance);
-
-
+                .port(80)
+                .loadBalancer(alb)
+                .defaultTargetGroups(List.of(targetGroup))
+                .build());
 
         // Create an HTTP Integration for API Gateway to forward requests to the ALB
         Integration albIntegration = Integration.Builder.create()
@@ -148,8 +130,7 @@ public class InfraStack extends Stack {
                         .build())
                 .build();
 
-        UsagePlan usagePlan = new UsagePlan(this,"UsagePlan-2",usagePlanProps);
-
+        UsagePlan usagePlan = new UsagePlan(this, "UsagePlan-2", usagePlanProps);
         usagePlan.addApiKey(apiKey);
 
         var posts = api.getRoot().addResource("appointment");
