@@ -93,7 +93,7 @@ public class InfraStack extends Stack {
         ec2Instance.addUserData(
                 "#!/bin/bash",
                 "yum update -y",
-                "yum install -y git java-17-amazon-corretto-headless", // Install Git and Java 17
+                "yum install -y git java-17-amazon-corretto-headless maven", // Install Git and Java 17
                 "cd /home/ec2-user",
                 "git clone https://github.com/Amanj5486/Appointment.git", // Clone your GitHub repository
                 "cd Appointment/functions", // Navigate to the functions directory
