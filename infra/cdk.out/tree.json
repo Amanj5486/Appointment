@@ -8,513 +8,13 @@
         "id": "EC2Stack",
         "path": "EC2Stack",
         "children": {
-          "RestAPI-2": {
-            "id": "RestAPI-2",
-            "path": "EC2Stack/RestAPI-2",
+          "ExampleSpringbootApplicationVpc": {
+            "id": "ExampleSpringbootApplicationVpc",
+            "path": "EC2Stack/ExampleSpringbootApplicationVpc",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "EC2Stack/RestAPI-2/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
-                  "aws:cdk:cloudformation:props": {
-                    "apiKeySourceType": "HEADER",
-                    "name": "RestAPI-2"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.CfnRestApi",
-                  "version": "2.137.0"
-                }
-              },
-              "Deployment": {
-                "id": "Deployment",
-                "path": "EC2Stack/RestAPI-2/Deployment",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "EC2Stack/RestAPI-2/Deployment/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
-                      "aws:cdk:cloudformation:props": {
-                        "description": "Automatically created by the RestApi construct",
-                        "restApiId": {
-                          "Ref": "RestAPI2E46CC989"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
-                      "version": "2.137.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
-                  "version": "2.137.0"
-                }
-              },
-              "DeploymentStage.prod": {
-                "id": "DeploymentStage.prod",
-                "path": "EC2Stack/RestAPI-2/DeploymentStage.prod",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "EC2Stack/RestAPI-2/DeploymentStage.prod/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
-                      "aws:cdk:cloudformation:props": {
-                        "deploymentId": {
-                          "Ref": "RestAPI2DeploymentCC8A618B393546c09d8d10708aa76bf01d524a6a"
-                        },
-                        "restApiId": {
-                          "Ref": "RestAPI2E46CC989"
-                        },
-                        "stageName": "prod"
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
-                      "version": "2.137.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.Stage",
-                  "version": "2.137.0"
-                }
-              },
-              "Endpoint": {
-                "id": "Endpoint",
-                "path": "EC2Stack/RestAPI-2/Endpoint",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnOutput",
-                  "version": "2.137.0"
-                }
-              },
-              "Default": {
-                "id": "Default",
-                "path": "EC2Stack/RestAPI-2/Default",
-                "children": {
-                  "OPTIONS": {
-                    "id": "OPTIONS",
-                    "path": "EC2Stack/RestAPI-2/Default/OPTIONS",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "EC2Stack/RestAPI-2/Default/OPTIONS/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                          "aws:cdk:cloudformation:props": {
-                            "apiKeyRequired": false,
-                            "authorizationType": "NONE",
-                            "httpMethod": "OPTIONS",
-                            "integration": {
-                              "type": "MOCK",
-                              "requestTemplates": {
-                                "application/json": "{ statusCode: 200 }"
-                              },
-                              "integrationResponses": [
-                                {
-                                  "statusCode": "204",
-                                  "responseParameters": {
-                                    "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                                    "method.response.header.Access-Control-Allow-Origin": "'*'",
-                                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
-                                  }
-                                }
-                              ]
-                            },
-                            "methodResponses": [
-                              {
-                                "statusCode": "204",
-                                "responseParameters": {
-                                  "method.response.header.Access-Control-Allow-Headers": true,
-                                  "method.response.header.Access-Control-Allow-Origin": true,
-                                  "method.response.header.Access-Control-Allow-Methods": true
-                                }
-                              }
-                            ],
-                            "resourceId": {
-                              "Fn::GetAtt": [
-                                "RestAPI2E46CC989",
-                                "RootResourceId"
-                              ]
-                            },
-                            "restApiId": {
-                              "Ref": "RestAPI2E46CC989"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                          "version": "2.137.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                      "version": "2.137.0"
-                    }
-                  },
-                  "appointment": {
-                    "id": "appointment",
-                    "path": "EC2Stack/RestAPI-2/Default/appointment",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "EC2Stack/RestAPI-2/Default/appointment/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
-                          "aws:cdk:cloudformation:props": {
-                            "parentId": {
-                              "Fn::GetAtt": [
-                                "RestAPI2E46CC989",
-                                "RootResourceId"
-                              ]
-                            },
-                            "pathPart": "appointment",
-                            "restApiId": {
-                              "Ref": "RestAPI2E46CC989"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
-                          "version": "2.137.0"
-                        }
-                      },
-                      "OPTIONS": {
-                        "id": "OPTIONS",
-                        "path": "EC2Stack/RestAPI-2/Default/appointment/OPTIONS",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "EC2Stack/RestAPI-2/Default/appointment/OPTIONS/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                              "aws:cdk:cloudformation:props": {
-                                "apiKeyRequired": false,
-                                "authorizationType": "NONE",
-                                "httpMethod": "OPTIONS",
-                                "integration": {
-                                  "type": "MOCK",
-                                  "requestTemplates": {
-                                    "application/json": "{ statusCode: 200 }"
-                                  },
-                                  "integrationResponses": [
-                                    {
-                                      "statusCode": "204",
-                                      "responseParameters": {
-                                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                                        "method.response.header.Access-Control-Allow-Origin": "'*'",
-                                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
-                                      }
-                                    }
-                                  ]
-                                },
-                                "methodResponses": [
-                                  {
-                                    "statusCode": "204",
-                                    "responseParameters": {
-                                      "method.response.header.Access-Control-Allow-Headers": true,
-                                      "method.response.header.Access-Control-Allow-Origin": true,
-                                      "method.response.header.Access-Control-Allow-Methods": true
-                                    }
-                                  }
-                                ],
-                                "resourceId": {
-                                  "Ref": "RestAPI2appointmentEAC1F7C7"
-                                },
-                                "restApiId": {
-                                  "Ref": "RestAPI2E46CC989"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                              "version": "2.137.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                          "version": "2.137.0"
-                        }
-                      },
-                      "GET": {
-                        "id": "GET",
-                        "path": "EC2Stack/RestAPI-2/Default/appointment/GET",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "EC2Stack/RestAPI-2/Default/appointment/GET/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                              "aws:cdk:cloudformation:props": {
-                                "apiKeyRequired": true,
-                                "authorizationType": "NONE",
-                                "httpMethod": "GET",
-                                "integration": {
-                                  "type": "HTTP_PROXY",
-                                  "uri": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "https://",
-                                        {
-                                          "Fn::GetAtt": [
-                                            "MyALB911A8556",
-                                            "DNSName"
-                                          ]
-                                        },
-                                        "/"
-                                      ]
-                                    ]
-                                  },
-                                  "integrationHttpMethod": "ANY",
-                                  "connectionType": "INTERNET"
-                                },
-                                "resourceId": {
-                                  "Ref": "RestAPI2appointmentEAC1F7C7"
-                                },
-                                "restApiId": {
-                                  "Ref": "RestAPI2E46CC989"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                              "version": "2.137.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                          "version": "2.137.0"
-                        }
-                      },
-                      "POST": {
-                        "id": "POST",
-                        "path": "EC2Stack/RestAPI-2/Default/appointment/POST",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "EC2Stack/RestAPI-2/Default/appointment/POST/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                              "aws:cdk:cloudformation:props": {
-                                "apiKeyRequired": true,
-                                "authorizationType": "NONE",
-                                "httpMethod": "POST",
-                                "integration": {
-                                  "type": "HTTP_PROXY",
-                                  "uri": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "https://",
-                                        {
-                                          "Fn::GetAtt": [
-                                            "MyALB911A8556",
-                                            "DNSName"
-                                          ]
-                                        },
-                                        "/"
-                                      ]
-                                    ]
-                                  },
-                                  "integrationHttpMethod": "ANY",
-                                  "connectionType": "INTERNET"
-                                },
-                                "resourceId": {
-                                  "Ref": "RestAPI2appointmentEAC1F7C7"
-                                },
-                                "restApiId": {
-                                  "Ref": "RestAPI2E46CC989"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                              "version": "2.137.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                          "version": "2.137.0"
-                        }
-                      },
-                      "PUT": {
-                        "id": "PUT",
-                        "path": "EC2Stack/RestAPI-2/Default/appointment/PUT",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "EC2Stack/RestAPI-2/Default/appointment/PUT/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                              "aws:cdk:cloudformation:props": {
-                                "apiKeyRequired": true,
-                                "authorizationType": "NONE",
-                                "httpMethod": "PUT",
-                                "integration": {
-                                  "type": "HTTP_PROXY",
-                                  "uri": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "https://",
-                                        {
-                                          "Fn::GetAtt": [
-                                            "MyALB911A8556",
-                                            "DNSName"
-                                          ]
-                                        },
-                                        "/"
-                                      ]
-                                    ]
-                                  },
-                                  "integrationHttpMethod": "ANY",
-                                  "connectionType": "INTERNET"
-                                },
-                                "resourceId": {
-                                  "Ref": "RestAPI2appointmentEAC1F7C7"
-                                },
-                                "restApiId": {
-                                  "Ref": "RestAPI2E46CC989"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                              "version": "2.137.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                          "version": "2.137.0"
-                        }
-                      },
-                      "DELETE": {
-                        "id": "DELETE",
-                        "path": "EC2Stack/RestAPI-2/Default/appointment/DELETE",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "EC2Stack/RestAPI-2/Default/appointment/DELETE/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                              "aws:cdk:cloudformation:props": {
-                                "apiKeyRequired": true,
-                                "authorizationType": "NONE",
-                                "httpMethod": "DELETE",
-                                "integration": {
-                                  "type": "HTTP_PROXY",
-                                  "uri": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "https://",
-                                        {
-                                          "Fn::GetAtt": [
-                                            "MyALB911A8556",
-                                            "DNSName"
-                                          ]
-                                        },
-                                        "/"
-                                      ]
-                                    ]
-                                  },
-                                  "integrationHttpMethod": "ANY",
-                                  "connectionType": "INTERNET"
-                                },
-                                "resourceId": {
-                                  "Ref": "RestAPI2appointmentEAC1F7C7"
-                                },
-                                "restApiId": {
-                                  "Ref": "RestAPI2E46CC989"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                              "version": "2.137.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                          "version": "2.137.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
-                      "version": "2.137.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
-                  "version": "2.137.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_apigateway.RestApi",
-              "version": "2.137.0"
-            }
-          },
-          "ApiKey-2": {
-            "id": "ApiKey-2",
-            "path": "EC2Stack/ApiKey-2",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "EC2Stack/ApiKey-2/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::ApiKey",
-                  "aws:cdk:cloudformation:props": {
-                    "enabled": true
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.CfnApiKey",
-                  "version": "2.137.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_apigateway.ApiKey",
-              "version": "2.137.0"
-            }
-          },
-          "ExistingBucket": {
-            "id": "ExistingBucket",
-            "path": "EC2Stack/ExistingBucket",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-              "version": "2.137.0"
-            }
-          },
-          "ExistingBucket_1": {
-            "id": "ExistingBucket_1",
-            "path": "EC2Stack/ExistingBucket_1",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-              "version": "2.137.0"
-            }
-          },
-          "MyVpc": {
-            "id": "MyVpc",
-            "path": "EC2Stack/MyVpc",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "EC2Stack/MyVpc/Resource",
+                "path": "EC2Stack/ExampleSpringbootApplicationVpc/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
                   "aws:cdk:cloudformation:props": {
@@ -525,7 +25,7 @@
                     "tags": [
                       {
                         "key": "Name",
-                        "value": "EC2Stack/MyVpc"
+                        "value": "EC2Stack/ExampleSpringbootApplicationVpc"
                       }
                     ]
                   }
@@ -537,11 +37,11 @@
               },
               "PublicSubnet1": {
                 "id": "PublicSubnet1",
-                "path": "EC2Stack/MyVpc/PublicSubnet1",
+                "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "EC2Stack/MyVpc/PublicSubnet1/Subnet",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -566,11 +66,11 @@
                           },
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PublicSubnet1"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1"
                           }
                         ],
                         "vpcId": {
-                          "Ref": "MyVpcF9F0CA6F"
+                          "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                         }
                       }
                     },
@@ -581,7 +81,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "EC2Stack/MyVpc/PublicSubnet1/Acl",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.137.0"
@@ -589,18 +89,18 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "EC2Stack/MyVpc/PublicSubnet1/RouteTable",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PublicSubnet1"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1"
                           }
                         ],
                         "vpcId": {
-                          "Ref": "MyVpcF9F0CA6F"
+                          "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                         }
                       }
                     },
@@ -611,15 +111,15 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "EC2Stack/MyVpc/PublicSubnet1/RouteTableAssociation",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
                         "routeTableId": {
-                          "Ref": "MyVpcPublicSubnet1RouteTableC46AB2F4"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet1RouteTable3C946727"
                         },
                         "subnetId": {
-                          "Ref": "MyVpcPublicSubnet1SubnetF6608456"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet1Subnet1135B75B"
                         }
                       }
                     },
@@ -630,16 +130,16 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "EC2Stack/MyVpc/PublicSubnet1/DefaultRoute",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
                         "destinationCidrBlock": "0.0.0.0/0",
                         "gatewayId": {
-                          "Ref": "MyVpcIGW5C4A4F63"
+                          "Ref": "ExampleSpringbootApplicationVpcIGW66D3E47D"
                         },
                         "routeTableId": {
-                          "Ref": "MyVpcPublicSubnet1RouteTableC46AB2F4"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet1RouteTable3C946727"
                         }
                       }
                     },
@@ -650,7 +150,7 @@
                   },
                   "EIP": {
                     "id": "EIP",
-                    "path": "EC2Stack/MyVpc/PublicSubnet1/EIP",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/EIP",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
                       "aws:cdk:cloudformation:props": {
@@ -658,7 +158,7 @@
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PublicSubnet1"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1"
                           }
                         ]
                       }
@@ -670,23 +170,23 @@
                   },
                   "NATGateway": {
                     "id": "NATGateway",
-                    "path": "EC2Stack/MyVpc/PublicSubnet1/NATGateway",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/NATGateway",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
                       "aws:cdk:cloudformation:props": {
                         "allocationId": {
                           "Fn::GetAtt": [
-                            "MyVpcPublicSubnet1EIP096967CB",
+                            "ExampleSpringbootApplicationVpcPublicSubnet1EIP2D995315",
                             "AllocationId"
                           ]
                         },
                         "subnetId": {
-                          "Ref": "MyVpcPublicSubnet1SubnetF6608456"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet1Subnet1135B75B"
                         },
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PublicSubnet1"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1"
                           }
                         ]
                       }
@@ -704,11 +204,11 @@
               },
               "PublicSubnet2": {
                 "id": "PublicSubnet2",
-                "path": "EC2Stack/MyVpc/PublicSubnet2",
+                "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "EC2Stack/MyVpc/PublicSubnet2/Subnet",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -733,11 +233,11 @@
                           },
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PublicSubnet2"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2"
                           }
                         ],
                         "vpcId": {
-                          "Ref": "MyVpcF9F0CA6F"
+                          "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                         }
                       }
                     },
@@ -748,7 +248,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "EC2Stack/MyVpc/PublicSubnet2/Acl",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.137.0"
@@ -756,18 +256,18 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "EC2Stack/MyVpc/PublicSubnet2/RouteTable",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PublicSubnet2"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2"
                           }
                         ],
                         "vpcId": {
-                          "Ref": "MyVpcF9F0CA6F"
+                          "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                         }
                       }
                     },
@@ -778,15 +278,15 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "EC2Stack/MyVpc/PublicSubnet2/RouteTableAssociation",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
                         "routeTableId": {
-                          "Ref": "MyVpcPublicSubnet2RouteTable1DF17386"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet2RouteTable2B0C3F4E"
                         },
                         "subnetId": {
-                          "Ref": "MyVpcPublicSubnet2Subnet492B6BFB"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet2Subnet6AFD8287"
                         }
                       }
                     },
@@ -797,69 +297,21 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "EC2Stack/MyVpc/PublicSubnet2/DefaultRoute",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
                         "destinationCidrBlock": "0.0.0.0/0",
                         "gatewayId": {
-                          "Ref": "MyVpcIGW5C4A4F63"
+                          "Ref": "ExampleSpringbootApplicationVpcIGW66D3E47D"
                         },
                         "routeTableId": {
-                          "Ref": "MyVpcPublicSubnet2RouteTable1DF17386"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet2RouteTable2B0C3F4E"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
-                      "version": "2.137.0"
-                    }
-                  },
-                  "EIP": {
-                    "id": "EIP",
-                    "path": "EC2Stack/MyVpc/PublicSubnet2/EIP",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
-                      "aws:cdk:cloudformation:props": {
-                        "domain": "vpc",
-                        "tags": [
-                          {
-                            "key": "Name",
-                            "value": "EC2Stack/MyVpc/PublicSubnet2"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_ec2.CfnEIP",
-                      "version": "2.137.0"
-                    }
-                  },
-                  "NATGateway": {
-                    "id": "NATGateway",
-                    "path": "EC2Stack/MyVpc/PublicSubnet2/NATGateway",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
-                      "aws:cdk:cloudformation:props": {
-                        "allocationId": {
-                          "Fn::GetAtt": [
-                            "MyVpcPublicSubnet2EIP8CCBA239",
-                            "AllocationId"
-                          ]
-                        },
-                        "subnetId": {
-                          "Ref": "MyVpcPublicSubnet2Subnet492B6BFB"
-                        },
-                        "tags": [
-                          {
-                            "key": "Name",
-                            "value": "EC2Stack/MyVpc/PublicSubnet2"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_ec2.CfnNatGateway",
                       "version": "2.137.0"
                     }
                   }
@@ -871,11 +323,11 @@
               },
               "PrivateSubnet1": {
                 "id": "PrivateSubnet1",
-                "path": "EC2Stack/MyVpc/PrivateSubnet1",
+                "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet1/Subnet",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -900,11 +352,11 @@
                           },
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PrivateSubnet1"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1"
                           }
                         ],
                         "vpcId": {
-                          "Ref": "MyVpcF9F0CA6F"
+                          "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                         }
                       }
                     },
@@ -915,7 +367,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet1/Acl",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.137.0"
@@ -923,18 +375,18 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet1/RouteTable",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PrivateSubnet1"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1"
                           }
                         ],
                         "vpcId": {
-                          "Ref": "MyVpcF9F0CA6F"
+                          "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                         }
                       }
                     },
@@ -945,15 +397,15 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet1/RouteTableAssociation",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
                         "routeTableId": {
-                          "Ref": "MyVpcPrivateSubnet1RouteTable8819E6E2"
+                          "Ref": "ExampleSpringbootApplicationVpcPrivateSubnet1RouteTable54CB5BA3"
                         },
                         "subnetId": {
-                          "Ref": "MyVpcPrivateSubnet1Subnet5057CF7E"
+                          "Ref": "ExampleSpringbootApplicationVpcPrivateSubnet1Subnet2C9429D9"
                         }
                       }
                     },
@@ -964,16 +416,16 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet1/DefaultRoute",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
                         "destinationCidrBlock": "0.0.0.0/0",
                         "natGatewayId": {
-                          "Ref": "MyVpcPublicSubnet1NATGatewayAD3400C1"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet1NATGatewayA24BFF61"
                         },
                         "routeTableId": {
-                          "Ref": "MyVpcPrivateSubnet1RouteTable8819E6E2"
+                          "Ref": "ExampleSpringbootApplicationVpcPrivateSubnet1RouteTable54CB5BA3"
                         }
                       }
                     },
@@ -990,11 +442,11 @@
               },
               "PrivateSubnet2": {
                 "id": "PrivateSubnet2",
-                "path": "EC2Stack/MyVpc/PrivateSubnet2",
+                "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet2/Subnet",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -1019,11 +471,11 @@
                           },
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PrivateSubnet2"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2"
                           }
                         ],
                         "vpcId": {
-                          "Ref": "MyVpcF9F0CA6F"
+                          "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                         }
                       }
                     },
@@ -1034,7 +486,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet2/Acl",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.137.0"
@@ -1042,18 +494,18 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet2/RouteTable",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "EC2Stack/MyVpc/PrivateSubnet2"
+                            "value": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2"
                           }
                         ],
                         "vpcId": {
-                          "Ref": "MyVpcF9F0CA6F"
+                          "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                         }
                       }
                     },
@@ -1064,15 +516,15 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet2/RouteTableAssociation",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
                         "routeTableId": {
-                          "Ref": "MyVpcPrivateSubnet2RouteTableCEDCEECE"
+                          "Ref": "ExampleSpringbootApplicationVpcPrivateSubnet2RouteTable5DB4CF36"
                         },
                         "subnetId": {
-                          "Ref": "MyVpcPrivateSubnet2Subnet0040C983"
+                          "Ref": "ExampleSpringbootApplicationVpcPrivateSubnet2Subnet3E5570F4"
                         }
                       }
                     },
@@ -1083,16 +535,16 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "EC2Stack/MyVpc/PrivateSubnet2/DefaultRoute",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
                         "destinationCidrBlock": "0.0.0.0/0",
                         "natGatewayId": {
-                          "Ref": "MyVpcPublicSubnet2NATGateway91BFBEC9"
+                          "Ref": "ExampleSpringbootApplicationVpcPublicSubnet1NATGatewayA24BFF61"
                         },
                         "routeTableId": {
-                          "Ref": "MyVpcPrivateSubnet2RouteTableCEDCEECE"
+                          "Ref": "ExampleSpringbootApplicationVpcPrivateSubnet2RouteTable5DB4CF36"
                         }
                       }
                     },
@@ -1109,14 +561,14 @@
               },
               "IGW": {
                 "id": "IGW",
-                "path": "EC2Stack/MyVpc/IGW",
+                "path": "EC2Stack/ExampleSpringbootApplicationVpc/IGW",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
                   "aws:cdk:cloudformation:props": {
                     "tags": [
                       {
                         "key": "Name",
-                        "value": "EC2Stack/MyVpc"
+                        "value": "EC2Stack/ExampleSpringbootApplicationVpc"
                       }
                     ]
                   }
@@ -1128,15 +580,15 @@
               },
               "VPCGW": {
                 "id": "VPCGW",
-                "path": "EC2Stack/MyVpc/VPCGW",
+                "path": "EC2Stack/ExampleSpringbootApplicationVpc/VPCGW",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
                   "aws:cdk:cloudformation:props": {
                     "internetGatewayId": {
-                      "Ref": "MyVpcIGW5C4A4F63"
+                      "Ref": "ExampleSpringbootApplicationVpcIGW66D3E47D"
                     },
                     "vpcId": {
-                      "Ref": "MyVpcF9F0CA6F"
+                      "Ref": "ExampleSpringbootApplicationVpc122F37DF"
                     }
                   }
                 },
@@ -1147,11 +599,11 @@
               },
               "RestrictDefaultSecurityGroupCustomResource": {
                 "id": "RestrictDefaultSecurityGroupCustomResource",
-                "path": "EC2Stack/MyVpc/RestrictDefaultSecurityGroupCustomResource",
+                "path": "EC2Stack/ExampleSpringbootApplicationVpc/RestrictDefaultSecurityGroupCustomResource",
                 "children": {
                   "Default": {
                     "id": "Default",
-                    "path": "EC2Stack/MyVpc/RestrictDefaultSecurityGroupCustomResource/Default",
+                    "path": "EC2Stack/ExampleSpringbootApplicationVpc/RestrictDefaultSecurityGroupCustomResource/Default",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
                       "version": "2.137.0"
@@ -1203,63 +655,874 @@
               "version": "2.137.0"
             }
           },
-          "SecurityGroup": {
-            "id": "SecurityGroup",
-            "path": "EC2Stack/SecurityGroup",
+          "ExampleSpringbootApplicationCluster": {
+            "id": "ExampleSpringbootApplicationCluster",
+            "path": "EC2Stack/ExampleSpringbootApplicationCluster",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "EC2Stack/SecurityGroup/Resource",
+                "path": "EC2Stack/ExampleSpringbootApplicationCluster/Resource",
                 "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
                   "aws:cdk:cloudformation:props": {
-                    "groupDescription": "EC2Stack/SecurityGroup",
-                    "securityGroupEgress": [
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "description": "Allow all outbound traffic by default",
-                        "ipProtocol": "-1"
-                      }
-                    ],
-                    "securityGroupIngress": [
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "ipProtocol": "tcp",
-                        "fromPort": 80,
-                        "toPort": 80,
-                        "description": "Allow HTTP traffic"
-                      },
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "ipProtocol": "tcp",
-                        "fromPort": 8080,
-                        "toPort": 8080,
-                        "description": "Allow application traffic"
-                      }
-                    ],
-                    "vpcId": {
-                      "Ref": "MyVpcF9F0CA6F"
-                    }
+                    "clusterName": "ApplicationCluster"
                   }
                 },
                 "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnCluster",
                   "version": "2.137.0"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "fqn": "aws-cdk-lib.aws_ecs.Cluster",
               "version": "2.137.0"
             }
           },
-          "EC2Role": {
-            "id": "EC2Role",
-            "path": "EC2Stack/EC2Role",
+          "ExampleSpringbootLoadBalancedApplication": {
+            "id": "ExampleSpringbootLoadBalancedApplication",
+            "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication",
             "children": {
-              "ImportEC2Role": {
-                "id": "ImportEC2Role",
-                "path": "EC2Stack/EC2Role/ImportEC2Role",
+              "LB": {
+                "id": "LB",
+                "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                      "aws:cdk:cloudformation:props": {
+                        "loadBalancerAttributes": [
+                          {
+                            "key": "deletion_protection.enabled",
+                            "value": "false"
+                          }
+                        ],
+                        "scheme": "internet-facing",
+                        "securityGroups": [
+                          {
+                            "Fn::GetAtt": [
+                              "ExampleSpringbootLoadBalancedApplicationLBSecurityGroup6B3B58BE",
+                              "GroupId"
+                            ]
+                          }
+                        ],
+                        "subnets": [
+                          {
+                            "Ref": "ExampleSpringbootApplicationVpcPublicSubnet1Subnet1135B75B"
+                          },
+                          {
+                            "Ref": "ExampleSpringbootApplicationVpcPublicSubnet2Subnet6AFD8287"
+                          }
+                        ],
+                        "type": "application"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnLoadBalancer",
+                      "version": "2.137.0"
+                    }
+                  },
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "Automatically created Security Group for ELB EC2StackExampleSpringbootLoadBalancedApplicationLBF06654CA",
+                            "securityGroupIngress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "ipProtocol": "tcp",
+                                "fromPort": 80,
+                                "toPort": 80,
+                                "description": "Allow from anyone on port 80"
+                              }
+                            ],
+                            "vpcId": {
+                              "Ref": "ExampleSpringbootApplicationVpc122F37DF"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.137.0"
+                        }
+                      },
+                      "to EC2StackExampleSpringbootLoadBalancedApplicationServiceSecurityGroup08011608:8080": {
+                        "id": "to EC2StackExampleSpringbootLoadBalancedApplicationServiceSecurityGroup08011608:8080",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/SecurityGroup/to EC2StackExampleSpringbootLoadBalancedApplicationServiceSecurityGroup08011608:8080",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
+                          "aws:cdk:cloudformation:props": {
+                            "description": "Load balancer to target",
+                            "destinationSecurityGroupId": {
+                              "Fn::GetAtt": [
+                                "ExampleSpringbootLoadBalancedApplicationServiceSecurityGroup0B741ECD",
+                                "GroupId"
+                              ]
+                            },
+                            "fromPort": 8080,
+                            "groupId": {
+                              "Fn::GetAtt": [
+                                "ExampleSpringbootLoadBalancedApplicationLBSecurityGroup6B3B58BE",
+                                "GroupId"
+                              ]
+                            },
+                            "ipProtocol": "tcp",
+                            "toPort": 8080
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupEgress",
+                          "version": "2.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.137.0"
+                    }
+                  },
+                  "PublicListener": {
+                    "id": "PublicListener",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/PublicListener",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/PublicListener/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                          "aws:cdk:cloudformation:props": {
+                            "defaultActions": [
+                              {
+                                "type": "forward",
+                                "targetGroupArn": {
+                                  "Ref": "ExampleSpringbootLoadBalancedApplicationLBPublicListenerECSGroup5BD16892"
+                                }
+                              }
+                            ],
+                            "loadBalancerArn": {
+                              "Ref": "ExampleSpringbootLoadBalancedApplicationLB51F462A9"
+                            },
+                            "port": 80,
+                            "protocol": "HTTP"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
+                          "version": "2.137.0"
+                        }
+                      },
+                      "ECSGroup": {
+                        "id": "ECSGroup",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/PublicListener/ECSGroup",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/PublicListener/ECSGroup/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                              "aws:cdk:cloudformation:props": {
+                                "healthCheckIntervalSeconds": 5,
+                                "healthCheckPath": "/actuator/health",
+                                "healthCheckPort": "traffic-port",
+                                "healthCheckTimeoutSeconds": 4,
+                                "healthyThresholdCount": 2,
+                                "matcher": {
+                                  "httpCode": "200,301,302"
+                                },
+                                "port": 80,
+                                "protocol": "HTTP",
+                                "targetGroupAttributes": [
+                                  {
+                                    "key": "stickiness.enabled",
+                                    "value": "false"
+                                  }
+                                ],
+                                "targetType": "ip",
+                                "unhealthyThresholdCount": 2,
+                                "vpcId": {
+                                  "Ref": "ExampleSpringbootApplicationVpc122F37DF"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
+                              "version": "2.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
+                          "version": "2.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
+                      "version": "2.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
+                  "version": "2.137.0"
+                }
+              },
+              "LoadBalancerDNS": {
+                "id": "LoadBalancerDNS",
+                "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/LoadBalancerDNS",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.137.0"
+                }
+              },
+              "ServiceURL": {
+                "id": "ServiceURL",
+                "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/ServiceURL",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.137.0"
+                }
+              },
+              "TaskDef": {
+                "id": "TaskDef",
+                "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef",
+                "children": {
+                  "TaskRole": {
+                    "id": "TaskRole",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/TaskRole",
+                    "children": {
+                      "ImportTaskRole": {
+                        "id": "ImportTaskRole",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/TaskRole/ImportTaskRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.137.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/TaskRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "ecs-tasks.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.137.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                      "aws:cdk:cloudformation:props": {
+                        "containerDefinitions": [
+                          {
+                            "essential": true,
+                            "image": {
+                              "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:231cff174db355e50f89e328d64480900ac31006276d989b51b9c0b5421f6b25"
+                            },
+                            "name": "web",
+                            "portMappings": [
+                              {
+                                "containerPort": 8080,
+                                "protocol": "tcp"
+                              }
+                            ],
+                            "logConfiguration": {
+                              "logDriver": "awslogs",
+                              "options": {
+                                "awslogs-group": {
+                                  "Ref": "ExampleSpringbootLoadBalancedApplicationTaskDefwebLogGroupBAA4C89B"
+                                },
+                                "awslogs-stream-prefix": "ExampleSpringbootLoadBalancedApplication",
+                                "awslogs-region": {
+                                  "Ref": "AWS::Region"
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "cpu": "256",
+                        "executionRoleArn": {
+                          "Fn::GetAtt": [
+                            "ExampleSpringbootLoadBalancedApplicationTaskDefExecutionRole8425C3CD",
+                            "Arn"
+                          ]
+                        },
+                        "family": "EC2StackExampleSpringbootLoadBalancedApplicationTaskDefCDA724FF",
+                        "memory": "512",
+                        "networkMode": "awsvpc",
+                        "requiresCompatibilities": [
+                          "FARGATE"
+                        ],
+                        "taskRoleArn": {
+                          "Fn::GetAtt": [
+                            "ExampleSpringbootLoadBalancedApplicationTaskDefTaskRole14448A02",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnTaskDefinition",
+                      "version": "2.137.0"
+                    }
+                  },
+                  "web": {
+                    "id": "web",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/web",
+                    "children": {
+                      "AssetImage": {
+                        "id": "AssetImage",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/web/AssetImage",
+                        "children": {
+                          "Staging": {
+                            "id": "Staging",
+                            "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/web/AssetImage/Staging",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.AssetStaging",
+                              "version": "2.137.0"
+                            }
+                          },
+                          "Repository": {
+                            "id": "Repository",
+                            "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/web/AssetImage/Repository",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_ecr.RepositoryBase",
+                              "version": "2.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ecr_assets.DockerImageAsset",
+                          "version": "2.137.0"
+                        }
+                      },
+                      "LogGroup": {
+                        "id": "LogGroup",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/web/LogGroup",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/web/LogGroup/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                              "aws:cdk:cloudformation:props": {}
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                              "version": "2.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+                          "version": "2.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
+                      "version": "2.137.0"
+                    }
+                  },
+                  "ExecutionRole": {
+                    "id": "ExecutionRole",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/ExecutionRole",
+                    "children": {
+                      "ImportExecutionRole": {
+                        "id": "ImportExecutionRole",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/ExecutionRole/ImportExecutionRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.137.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/ExecutionRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "ecs-tasks.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.137.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/ExecutionRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/ExecutionRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "ecr:BatchCheckLayerAvailability",
+                                        "ecr:BatchGetImage",
+                                        "ecr:GetDownloadUrlForLayer"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":ecr:",
+                                            {
+                                              "Ref": "AWS::Region"
+                                            },
+                                            ":",
+                                            {
+                                              "Ref": "AWS::AccountId"
+                                            },
+                                            ":repository/",
+                                            {
+                                              "Fn::Sub": "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}"
+                                            }
+                                          ]
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": "ecr:GetAuthorizationToken",
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": [
+                                        "logs:CreateLogStream",
+                                        "logs:PutLogEvents"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::GetAtt": [
+                                          "ExampleSpringbootLoadBalancedApplicationTaskDefwebLogGroupBAA4C89B",
+                                          "Arn"
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": [
+                                        "s3:GetObject",
+                                        "s3:ListBucket"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:",
+                                              {
+                                                "Ref": "AWS::Partition"
+                                              },
+                                              ":s3:::doctor-image-1"
+                                            ]
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:",
+                                              {
+                                                "Ref": "AWS::Partition"
+                                              },
+                                              ":s3:::doctor-image-1/*"
+                                            ]
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:",
+                                              {
+                                                "Ref": "AWS::Partition"
+                                              },
+                                              ":s3:::patient-image-1"
+                                            ]
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:",
+                                              {
+                                                "Ref": "AWS::Partition"
+                                              },
+                                              ":s3:::patient-image-1/*"
+                                            ]
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "ExampleSpringbootLoadBalancedApplicationTaskDefExecutionRoleDefaultPolicyB604F8A7",
+                                "roles": [
+                                  {
+                                    "Ref": "ExampleSpringbootLoadBalancedApplicationTaskDefExecutionRole8425C3CD"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
+                  "version": "2.137.0"
+                }
+              },
+              "Service": {
+                "id": "Service",
+                "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service",
+                "children": {
+                  "Service": {
+                    "id": "Service",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/Service",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                      "aws:cdk:cloudformation:props": {
+                        "cluster": {
+                          "Ref": "ExampleSpringbootApplicationCluster54107DB7"
+                        },
+                        "deploymentConfiguration": {
+                          "maximumPercent": 200,
+                          "minimumHealthyPercent": 50,
+                          "alarms": {
+                            "alarmNames": [],
+                            "enable": false,
+                            "rollback": false
+                          }
+                        },
+                        "desiredCount": 1,
+                        "enableEcsManagedTags": false,
+                        "healthCheckGracePeriodSeconds": 60,
+                        "launchType": "FARGATE",
+                        "loadBalancers": [
+                          {
+                            "targetGroupArn": {
+                              "Ref": "ExampleSpringbootLoadBalancedApplicationLBPublicListenerECSGroup5BD16892"
+                            },
+                            "containerName": "web",
+                            "containerPort": 8080
+                          }
+                        ],
+                        "networkConfiguration": {
+                          "awsvpcConfiguration": {
+                            "assignPublicIp": "DISABLED",
+                            "subnets": [
+                              {
+                                "Ref": "ExampleSpringbootApplicationVpcPrivateSubnet1Subnet2C9429D9"
+                              },
+                              {
+                                "Ref": "ExampleSpringbootApplicationVpcPrivateSubnet2Subnet3E5570F4"
+                              }
+                            ],
+                            "securityGroups": [
+                              {
+                                "Fn::GetAtt": [
+                                  "ExampleSpringbootLoadBalancedApplicationServiceSecurityGroup0B741ECD",
+                                  "GroupId"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "taskDefinition": {
+                          "Ref": "ExampleSpringbootLoadBalancedApplicationTaskDef52AF6454"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnService",
+                      "version": "2.137.0"
+                    }
+                  },
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/SecurityGroup",
+                            "securityGroupEgress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "description": "Allow all outbound traffic by default",
+                                "ipProtocol": "-1"
+                              }
+                            ],
+                            "vpcId": {
+                              "Ref": "ExampleSpringbootApplicationVpc122F37DF"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.137.0"
+                        }
+                      },
+                      "from EC2StackExampleSpringbootLoadBalancedApplicationLBSecurityGroupE2A5CC43:8080": {
+                        "id": "from EC2StackExampleSpringbootLoadBalancedApplicationLBSecurityGroupE2A5CC43:8080",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/SecurityGroup/from EC2StackExampleSpringbootLoadBalancedApplicationLBSecurityGroupE2A5CC43:8080",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                          "aws:cdk:cloudformation:props": {
+                            "description": "Load balancer to target",
+                            "fromPort": 8080,
+                            "groupId": {
+                              "Fn::GetAtt": [
+                                "ExampleSpringbootLoadBalancedApplicationServiceSecurityGroup0B741ECD",
+                                "GroupId"
+                              ]
+                            },
+                            "ipProtocol": "tcp",
+                            "sourceSecurityGroupId": {
+                              "Fn::GetAtt": [
+                                "ExampleSpringbootLoadBalancedApplicationLBSecurityGroup6B3B58BE",
+                                "GroupId"
+                              ]
+                            },
+                            "toPort": 8080
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                          "version": "2.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.137.0"
+                    }
+                  },
+                  "ScalingRole": {
+                    "id": "ScalingRole",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/ScalingRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.137.0"
+                    }
+                  },
+                  "TaskCount": {
+                    "id": "TaskCount",
+                    "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/TaskCount",
+                    "children": {
+                      "Target": {
+                        "id": "Target",
+                        "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/TaskCount/Target",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/TaskCount/Target/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApplicationAutoScaling::ScalableTarget",
+                              "aws:cdk:cloudformation:props": {
+                                "maxCapacity": 4,
+                                "minCapacity": 2,
+                                "resourceId": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "service/",
+                                      {
+                                        "Ref": "ExampleSpringbootApplicationCluster54107DB7"
+                                      },
+                                      "/",
+                                      {
+                                        "Fn::GetAtt": [
+                                          "ExampleSpringbootLoadBalancedApplicationService8EB7DAAD",
+                                          "Name"
+                                        ]
+                                      }
+                                    ]
+                                  ]
+                                },
+                                "roleArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
+                                    ]
+                                  ]
+                                },
+                                "scalableDimension": "ecs:service:DesiredCount",
+                                "serviceNamespace": "ecs"
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_applicationautoscaling.CfnScalableTarget",
+                              "version": "2.137.0"
+                            }
+                          },
+                          "CpuAutoScaling": {
+                            "id": "CpuAutoScaling",
+                            "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/TaskCount/Target/CpuAutoScaling",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/TaskCount/Target/CpuAutoScaling/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyName": "EC2StackExampleSpringbootLoadBalancedApplicationServiceTaskCountTargetCpuAutoScalingA2AFCB40",
+                                    "policyType": "TargetTrackingScaling",
+                                    "scalingTargetId": {
+                                      "Ref": "ExampleSpringbootLoadBalancedApplicationServiceTaskCountTargetB8913899"
+                                    },
+                                    "targetTrackingScalingPolicyConfiguration": {
+                                      "predefinedMetricSpecification": {
+                                        "predefinedMetricType": "ECSServiceAverageCPUUtilization"
+                                      },
+                                      "scaleInCooldown": 30,
+                                      "scaleOutCooldown": 30,
+                                      "targetValue": 45
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_applicationautoscaling.CfnScalingPolicy",
+                                  "version": "2.137.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_applicationautoscaling.TargetTrackingScalingPolicy",
+                              "version": "2.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_applicationautoscaling.ScalableTarget",
+                          "version": "2.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.ScalableTaskCount",
+                      "version": "2.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.FargateService",
+                  "version": "2.137.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs_patterns.ApplicationLoadBalancedFargateService",
+              "version": "2.137.0"
+            }
+          },
+          "ExistingBucket": {
+            "id": "ExistingBucket",
+            "path": "EC2Stack/ExistingBucket",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+              "version": "2.137.0"
+            }
+          },
+          "ExistingBucket_1": {
+            "id": "ExistingBucket_1",
+            "path": "EC2Stack/ExistingBucket_1",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+              "version": "2.137.0"
+            }
+          },
+          "EcsTaskExecutionRole": {
+            "id": "EcsTaskExecutionRole",
+            "path": "EC2Stack/EcsTaskExecutionRole",
+            "children": {
+              "ImportEcsTaskExecutionRole": {
+                "id": "ImportEcsTaskExecutionRole",
+                "path": "EC2Stack/EcsTaskExecutionRole/ImportEcsTaskExecutionRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.137.0"
@@ -1267,7 +1530,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "EC2Stack/EC2Role/Resource",
+                "path": "EC2Stack/EcsTaskExecutionRole/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                   "aws:cdk:cloudformation:props": {
@@ -1277,38 +1540,12 @@
                           "Action": "sts:AssumeRole",
                           "Effect": "Allow",
                           "Principal": {
-                            "Service": "ec2.amazonaws.com"
+                            "Service": "ecs-tasks.amazonaws.com"
                           }
                         }
                       ],
                       "Version": "2012-10-17"
-                    },
-                    "managedPolicyArns": [
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":iam::aws:policy/AmazonSSMManagedInstanceCore"
-                          ]
-                        ]
-                      },
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":iam::aws:policy/AmazonS3ReadOnlyAccess"
-                          ]
-                        ]
-                      }
-                    ]
+                    }
                   }
                 },
                 "constructInfo": {
@@ -1318,11 +1555,11 @@
               },
               "DefaultPolicy": {
                 "id": "DefaultPolicy",
-                "path": "EC2Stack/EC2Role/DefaultPolicy",
+                "path": "EC2Stack/EcsTaskExecutionRole/DefaultPolicy",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "EC2Stack/EC2Role/DefaultPolicy/Resource",
+                    "path": "EC2Stack/EcsTaskExecutionRole/DefaultPolicy/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                       "aws:cdk:cloudformation:props": {
@@ -1330,9 +1567,42 @@
                           "Statement": [
                             {
                               "Action": [
-                                "s3:GetBucket*",
-                                "s3:GetObject*",
-                                "s3:List*"
+                                "s3:GetObject",
+                                "s3:ListBucket"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":s3:::patient-image-1"
+                                    ]
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":s3:::patient-image-1/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Action": [
+                                "s3:GetObject",
+                                "s3:ListBucket",
+                                "s3:PutObject"
                               ],
                               "Effect": "Allow",
                               "Resource": [
@@ -1359,40 +1629,16 @@
                                       ":s3:::doctor-image-1/*"
                                     ]
                                   ]
-                                },
-                                {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":s3:::patient-image-1"
-                                    ]
-                                  ]
-                                },
-                                {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":s3:::patient-image-1/*"
-                                    ]
-                                  ]
                                 }
                               ]
                             }
                           ],
                           "Version": "2012-10-17"
                         },
-                        "policyName": "EC2RoleDefaultPolicy64E44857",
+                        "policyName": "EcsTaskExecutionRoleDefaultPolicyDCEEFDC3",
                         "roles": [
                           {
-                            "Ref": "EC2RoleF978FC1C"
+                            "Ref": "EcsTaskExecutionRoleC0B6A84D"
                           }
                         ]
                       }
@@ -1414,282 +1660,9 @@
               "version": "2.137.0"
             }
           },
-          "MyALB": {
-            "id": "MyALB",
-            "path": "EC2Stack/MyALB",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "EC2Stack/MyALB/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
-                  "aws:cdk:cloudformation:props": {
-                    "loadBalancerAttributes": [
-                      {
-                        "key": "deletion_protection.enabled",
-                        "value": "false"
-                      }
-                    ],
-                    "scheme": "internet-facing",
-                    "securityGroups": [
-                      {
-                        "Fn::GetAtt": [
-                          "SecurityGroupDD263621",
-                          "GroupId"
-                        ]
-                      }
-                    ],
-                    "subnets": [
-                      {
-                        "Ref": "MyVpcPublicSubnet1SubnetF6608456"
-                      },
-                      {
-                        "Ref": "MyVpcPublicSubnet2Subnet492B6BFB"
-                      }
-                    ],
-                    "type": "application"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnLoadBalancer",
-                  "version": "2.137.0"
-                }
-              },
-              "Listener": {
-                "id": "Listener",
-                "path": "EC2Stack/MyALB/Listener",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "EC2Stack/MyALB/Listener/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
-                      "aws:cdk:cloudformation:props": {
-                        "defaultActions": [
-                          {
-                            "type": "forward",
-                            "targetGroupArn": {
-                              "Ref": "TargetGroup3D7CD9B8"
-                            }
-                          }
-                        ],
-                        "loadBalancerArn": {
-                          "Ref": "MyALB911A8556"
-                        },
-                        "port": 80,
-                        "protocol": "HTTP"
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
-                      "version": "2.137.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
-                  "version": "2.137.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
-              "version": "2.137.0"
-            }
-          },
-          "MyEC2Instance": {
-            "id": "MyEC2Instance",
-            "path": "EC2Stack/MyEC2Instance",
-            "children": {
-              "InstanceProfile": {
-                "id": "InstanceProfile",
-                "path": "EC2Stack/MyEC2Instance/InstanceProfile",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
-                  "aws:cdk:cloudformation:props": {
-                    "roles": [
-                      {
-                        "Ref": "EC2RoleF978FC1C"
-                      }
-                    ]
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.CfnInstanceProfile",
-                  "version": "2.137.0"
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "EC2Stack/MyEC2Instance/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
-                  "aws:cdk:cloudformation:props": {
-                    "availabilityZone": {
-                      "Fn::Select": [
-                        0,
-                        {
-                          "Fn::GetAZs": ""
-                        }
-                      ]
-                    },
-                    "iamInstanceProfile": {
-                      "Ref": "MyEC2InstanceInstanceProfile9377ECBE"
-                    },
-                    "imageId": {
-                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
-                    },
-                    "instanceType": "t3.micro",
-                    "keyName": "my-ec2-keypair",
-                    "securityGroupIds": [
-                      {
-                        "Fn::GetAtt": [
-                          "SecurityGroupDD263621",
-                          "GroupId"
-                        ]
-                      }
-                    ],
-                    "subnetId": {
-                      "Ref": "MyVpcPrivateSubnet1Subnet5057CF7E"
-                    },
-                    "tags": [
-                      {
-                        "key": "Name",
-                        "value": "EC2Stack/MyEC2Instance"
-                      }
-                    ],
-                    "userData": {
-                      "Fn::Base64": "#!/bin/bash\n#!/bin/bash\nyum update -y\nyum install -y git java-17-amazon-corretto-headless\ncd /home/ec2-user\ngit clone https://github.com/Amanj5486/Appointment.git\ncd Appointment/functions\nmvn clean package\njava -jar target/functions-1.0-SNAPSHOT.jar"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ec2.CfnInstance",
-                  "version": "2.137.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ec2.Instance",
-              "version": "2.137.0"
-            }
-          },
-          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
-            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
-            "path": "EC2Stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnParameter",
-              "version": "2.137.0"
-            }
-          },
-          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118": {
-            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
-            "path": "EC2Stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.Resource",
-              "version": "2.137.0"
-            }
-          },
-          "TargetGroup": {
-            "id": "TargetGroup",
-            "path": "EC2Stack/TargetGroup",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "EC2Stack/TargetGroup/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-                  "aws:cdk:cloudformation:props": {
-                    "port": 8080,
-                    "protocol": "HTTP",
-                    "targetGroupAttributes": [
-                      {
-                        "key": "stickiness.enabled",
-                        "value": "false"
-                      }
-                    ],
-                    "targets": [
-                      {
-                        "id": {
-                          "Ref": "MyEC2InstanceB097982C"
-                        }
-                      }
-                    ],
-                    "targetType": "instance",
-                    "vpcId": {
-                      "Ref": "MyVpcF9F0CA6F"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
-                  "version": "2.137.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
-              "version": "2.137.0"
-            }
-          },
-          "UsagePlan-2": {
-            "id": "UsagePlan-2",
-            "path": "EC2Stack/UsagePlan-2",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "EC2Stack/UsagePlan-2/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::UsagePlan",
-                  "aws:cdk:cloudformation:props": {
-                    "apiStages": [
-                      {
-                        "apiId": {
-                          "Ref": "RestAPI2E46CC989"
-                        },
-                        "stage": {
-                          "Ref": "RestAPI2DeploymentStageprod9607207E"
-                        },
-                        "throttle": {}
-                      }
-                    ],
-                    "usagePlanName": "UsagePlan-2"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.CfnUsagePlan",
-                  "version": "2.137.0"
-                }
-              },
-              "UsagePlanKeyResource:EC2StackApiKey2AF8A072A": {
-                "id": "UsagePlanKeyResource:EC2StackApiKey2AF8A072A",
-                "path": "EC2Stack/UsagePlan-2/UsagePlanKeyResource:EC2StackApiKey2AF8A072A",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::UsagePlanKey",
-                  "aws:cdk:cloudformation:props": {
-                    "keyId": {
-                      "Ref": "ApiKey2A99A7DF8"
-                    },
-                    "keyType": "API_KEY",
-                    "usagePlanId": {
-                      "Ref": "UsagePlan2489D3D0C"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.CfnUsagePlanKey",
-                  "version": "2.137.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_apigateway.UsagePlan",
-              "version": "2.137.0"
-            }
-          },
-          "API Appointment Key ID": {
-            "id": "API Appointment Key ID",
-            "path": "EC2Stack/API Appointment Key ID",
+          "LoadBalancerURL": {
+            "id": "LoadBalancerURL",
+            "path": "EC2Stack/LoadBalancerURL",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.137.0"
