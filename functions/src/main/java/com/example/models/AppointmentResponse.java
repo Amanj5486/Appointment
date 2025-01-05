@@ -1,4 +1,4 @@
-package com.example.appointment.models;
+package com.example.models;
 
 import lombok.Builder;
 import lombok.Data;
@@ -10,5 +10,6 @@ public class AppointmentResponse {
     Doctor doctor;
     Appointments appointments;
     Double distance;
+    Patient patient;
 
 }

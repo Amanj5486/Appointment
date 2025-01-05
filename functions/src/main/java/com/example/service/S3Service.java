@@ -1,4 +1,4 @@
-package com.example.appointment.service;
+package com.example.service;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;

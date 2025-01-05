@@ -1,4 +1,4 @@
-package com.example.appointment.exception;
+package com.example.exception;
 
 public class RestClientException extends RuntimeException {
 

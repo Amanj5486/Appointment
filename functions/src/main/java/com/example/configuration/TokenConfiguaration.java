@@ -1,6 +1,6 @@
-package com.example.appointment.configuration;
+package com.example.configuration;
 
-import com.example.appointment.utils.RSAKeyProperties;
+import com.example.utils.RSAKeyProperties;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

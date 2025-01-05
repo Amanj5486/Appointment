@@ -1,4 +1,4 @@
-package com.example.appointment.configuration;
+package com.example.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +45,6 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/appointment/**").permitAll();
                     auth.anyRequest().authenticated();
                 });
 //                .formLogin(form -> form

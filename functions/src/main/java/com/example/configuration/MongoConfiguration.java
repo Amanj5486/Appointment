@@ -1,4 +1,4 @@
-package com.example.appointment.configuration;
+package com.example.configuration;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

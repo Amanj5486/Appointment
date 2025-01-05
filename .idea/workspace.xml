@@ -5,11 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b21b7591-51a2-4e4a-a7ab-b1a5cd94eed8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/infra" beforeDir="false" afterPath="$PROJECT_DIR$/infra" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/src/main/java/com/myorg/InfraApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/infra/src/main/java/com/myorg/InfraApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/src/main/java/com/myorg/InfraStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/infra/src/main/java/com/myorg/InfraStack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/src/test/java/com/myorg/InfraTest.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/src/main/resources/private_key.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/src/main/resources/public_key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/functions/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/DataGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/DataGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/ExampleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/ExampleApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/configuration/MongoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/configuration/MongoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/configuration/S3Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/configuration/S3Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/configuration/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/configuration/TokenConfiguaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/configuration/TokenConfiguaration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/controller/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/controller/AppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/exception/ApiExceptionResponseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/exception/ApiExceptionResponseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/exception/ApplicationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/exception/ApplicationException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/exception/RestClientException.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/exception/RestClientException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/ApplicationError.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/ApplicationError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/AppointmentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/AppointmentResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Appointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Appointments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/BaseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/BaseResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/ErrorDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/ErrorDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Prescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Prescription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Roles.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/Roles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/models/UserLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/models/UserLocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/repository/AppointmentsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/repository/AppointmentsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/repository/DoctorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/repository/DoctorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/repository/PatientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/repository/PatientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/repository/RolesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/repository/RolesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/service/AppointmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/service/S3Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/service/S3Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/utils/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/utils/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/utils/DistanceCalculatorUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/utils/DistanceCalculatorUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/utils/KeyGeneratorUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/utils/KeyGeneratorUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/java/com/example/utils/RSAKeyProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/java/com/example/utils/RSAKeyProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +56,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/infra" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -42,17 +73,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/ajaiswal/Personal/appointmentlambda&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "/Users/ajaiswal/Personal/appointmentlambda/functions/src/main/resources",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propCompiler"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/functions/src/main/resources" />
+      <recent name="$PROJECT_DIR$/infra" />
       <recent name="$PROJECT_DIR$/functions/src/main/java/com/example" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -64,11 +100,33 @@
   </component>
   <component name="RunManager" selected="Application.ExampleApplication">
     <configuration name="ExampleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17 (2)" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.example.ExampleApplication" />
       <module name="functions" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.example.appointment.ExampleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17 (2)" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.example.appointment.ExampleApplication" />
+      <module name="functions" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.appointment.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -143,11 +201,13 @@
     </configuration>
     <list>
       <item itemvalue="Application.ExampleApplication" />
+      <item itemvalue="Application.com.example.appointment.ExampleApplication" />
       <item itemvalue="JUnit.All in lambda-cdk" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.ExampleApplication" />
+        <item itemvalue="Application.com.example.appointment.ExampleApplication" />
         <item itemvalue="JUnit.All in lambda-cdk" />
       </list>
     </recent_temporary>
@@ -170,6 +230,11 @@
           <url>file://$PROJECT_DIR$/functions/src/main/java/com/example/ExampleApplication.java</url>
           <line>14</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/functions/src/main/java/com/example/ExampleApplication.java</url>
+          <line>9</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

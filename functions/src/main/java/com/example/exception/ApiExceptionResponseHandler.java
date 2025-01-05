@@ -1,8 +1,8 @@
-package com.example.appointment.exception;
+package com.example.exception;
 
 
-import com.example.appointment.models.ErrorDetails;
-import com.example.appointment.models.BaseResponse;
+import com.example.models.ErrorDetails;
+import com.example.models.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

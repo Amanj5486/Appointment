@@ -1,7 +1,7 @@
-package com.example.appointment.exception;
+package com.example.exception;
 
-import com.example.appointment.models.ErrorDetails;
-import com.example.appointment.models.ApplicationError;
+import com.example.models.ErrorDetails;
+import com.example.models.ApplicationError;
 import lombok.Getter;
 
 import java.io.Serial;

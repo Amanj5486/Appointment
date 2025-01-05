@@ -1,4 +1,4 @@
-package com.example.appointment.utils;
+package com.example.utils;
 
 public class DistanceCalculatorUtils {
 

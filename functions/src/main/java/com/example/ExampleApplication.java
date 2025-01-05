@@ -1,4 +1,4 @@
-package com.example.appointment;
+package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 
 @SpringBootApplication
-@EnableMongoRepositories(basePackages = "com.example.appointment.repository")
+@EnableMongoRepositories(basePackages = "com.example.repository")
 public class ExampleApplication {
 
 	public static void main(String[] args) {

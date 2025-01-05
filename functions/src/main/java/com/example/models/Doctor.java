@@ -1,4 +1,4 @@
-package com.example.appointment.models;
+package com.example.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -99,7 +99,8 @@ public class Doctor implements UserDetails {
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private  List<UserLocation> locations;
 
-
+    @JsonProperty("regis_number")
+    String regisNumber;
     @Override
     public boolean isAccountNonExpired() {
         return true;

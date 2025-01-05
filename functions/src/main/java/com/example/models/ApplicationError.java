@@ -1,4 +1,4 @@
-package com.example.appointment.models;
+package com.example.models;
 
 import lombok.Getter;
 

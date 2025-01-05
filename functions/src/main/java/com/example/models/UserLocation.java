@@ -1,10 +1,14 @@
-package com.example.appointment.models;
+package com.example.models;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
+@Builder
 @AllArgsConstructor
 public class UserLocation {
 
@@ -13,6 +17,7 @@ public class UserLocation {
     private String locationName;
 
     private String address;
+    String locationNumber;
 
 
 //    public UserLocation(double longitude, double latitude,String locationName, String address) {

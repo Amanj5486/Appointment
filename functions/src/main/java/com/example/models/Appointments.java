@@ -1,4 +1,4 @@
-package com.example.appointment.models;
+package com.example.models;
 
 
 
@@ -52,9 +52,11 @@ public class Appointments {
     Boolean typed;
 
     @JsonProperty("prescription")
-    String prescription;
+    Prescription prescription;
 
     @JsonProperty("user_location")
     UserLocation userLocation;
 
+    @JsonProperty("emergency")
+    Boolean emergency;
 }

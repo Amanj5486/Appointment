@@ -1,12 +1,18 @@
-package com.example.appointment.service;
+package com.example.service;
 
-import com.example.appointment.exception.ApplicationException;
-import com.example.appointment.models.*;
-import com.example.appointment.repository.AppointmentsRepository;
-import com.example.appointment.repository.DoctorRepository;
-import com.example.appointment.repository.PatientRepository;
-import com.example.appointment.utils.DistanceCalculatorUtils;
+import com.example.exception.ApplicationException;
+import com.example.models.*;
+import com.example.repository.AppointmentsRepository;
+import com.example.repository.DoctorRepository;
+import com.example.repository.PatientRepository;
+import com.example.utils.DistanceCalculatorUtils;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import org.springframework.data.geo.Point;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 
@@ -38,114 +44,195 @@ public class AppointmentService {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
 
-    public List<AppointmentResponse> getAppointment(String appointmentId, String patientId, String doctorId, LocalDate date, Integer appointmentStatus, String designation, List<String> doctorSymptoms, List<String>languages,
-                                                    Double patientLat, Double patientLng, Boolean sort, List<String> disease){
+
+    public List<AppointmentResponse> getAppointment(String appointmentId, String patientId, String doctorId, LocalDate startDate, LocalDate endDate, List<Integer> appointmentStatus, String designation, List<String> doctorSymptoms, List<String> languages, Double patientLat, Double patientLng, Boolean sort, List<String> disease) {
         List<AppointmentResponse> response = new ArrayList<>();
-        if(appointmentId != null){
+
+        // Handle appointment by ID
+        if (appointmentId != null) {
             Optional<Appointments> optionalAppointments = appointmentsRepository.findById(appointmentId);
-            if(optionalAppointments.isEmpty()){
+            if (optionalAppointments.isEmpty()) {
                 throw new ApplicationException(ApplicationError.APPOINTMENT_NOT_FOUND);
             }
+
             Appointments appointments = optionalAppointments.get();
-            AppointmentResponse appointmentResponse = AppointmentResponse.builder().build();
-            Doctor doctor = doctorRepository.findById(appointments.getDoctorId()).get();
-            appointmentResponse.setDoctor(doctor);
-            appointmentResponse.setAppointments(appointments);
-            if(patientLat!=null && patientLng!=null)
-                appointmentResponse.setDistance(DistanceCalculatorUtils.calculateDistance(patientLat,patientLng,appointments.getUserLocation().getCoordinates()[1],
-                        appointments.getUserLocation().getCoordinates()[0]));
+            Doctor doctor = doctorRepository.findById(appointments.getDoctorId()).orElseThrow(() -> new ApplicationException(ApplicationError.APPOINTMENT_NOT_FOUND));
+            String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1");
+            doctor.setImageURL(imageUrl);
+
+            AppointmentResponse appointmentResponse = AppointmentResponse.builder()
+                    .doctor(doctor)
+                    .appointments(appointments)
+                    .distance(calculateDistance(patientLat, patientLng, appointments))
+                    .build();
+
             response.add(appointmentResponse);
             return response;
         }
+
+        // Find matching doctors based on criteria
+        Set<String> doctorIds = findDoctorsByCriteria(designation, doctorSymptoms, languages, disease, doctorId);
+
+        // Build dynamic query
+        Query query = new Query();
+        if (patientId != null) {
+            query.addCriteria(Criteria.where("patientId").is(patientId));
+        }
+        if (!doctorIds.isEmpty()) {
+            query.addCriteria(Criteria.where("doctorId").in(doctorIds));
+        }
+        if (appointmentStatus != null && !appointmentStatus.isEmpty()) {
+            query.addCriteria(Criteria.where("appointmentStatus").in(appointmentStatus));
+        }
+
+        // Handle date range
+        addDateRangeCriteria(query, startDate, endDate);
+
+        // Handle geo-location sorting
+        if (sort && patientLng != null && patientLat != null) {
+            Point location = new Point(patientLng, patientLat);
+            query.addCriteria(Criteria.where("locations").near(location).maxDistance(500000));
+        }
+
+        List<Appointments> appointmentsList = mongoTemplate.find(query, Appointments.class);
+        return buildAppointmentResponse(appointmentsList, patientLat, patientLng);
+    }
+
+    private Set<String> findDoctorsByCriteria(String designation, List<String> doctorSymptoms, List<String> languages, List<String> disease, String doctorId) {
         Set<String> doctorIds = new HashSet<>();
-        if(designation!=null && languages!=null){
-            List<Doctor> doctors = doctorRepository.findAllByDesignationAndLanguages(designation,languages);
-            doctorIds = doctors.stream()
-                    .map(Doctor::getId)
-                    .collect(Collectors.toSet());
+
+        if (designation != null && languages != null) {
+            doctorIds.addAll(findDoctorIdsByDesignationAndLanguages(designation, languages));
+        } else if (designation != null) {
+            doctorIds.addAll(findDoctorIdsByDesignation(designation));
+        } else if (languages != null) {
+            doctorIds.addAll(findDoctorIdsByLanguages(languages));
         }
-        else if(designation!=null){
-            List<Doctor> doctors = doctorRepository.findAllByDesignation(designation);
-            doctorIds = doctors.stream()
-                    .map(Doctor::getId)
-                    .collect(Collectors.toSet());
+
+        if (doctorSymptoms != null && languages != null) {
+            doctorIds.addAll(findDoctorIdsBySymptomsAndLanguages(doctorSymptoms, languages));
+        } else if (doctorSymptoms != null) {
+            doctorIds.addAll(findDoctorIdsBySymptoms(doctorSymptoms));
         }
-        else if(languages!=null){
-            List<Doctor> doctors = doctorRepository.findAllByLanguages(languages);
-            doctorIds = doctors.stream()
-                    .map(Doctor::getId)
-                    .collect(Collectors.toSet());
+
+        if (disease != null) {
+            doctorIds.addAll(findDoctorIdsBySymptoms(disease));
         }
-        if(doctorSymptoms!=null && languages!=null){
-            List<Doctor> doctors = doctorRepository.findAllByDoctorSymptomsAndLanguages(doctorSymptoms,languages);
-            doctorIds = doctors.stream()
-                    .map(Doctor::getId)
-                    .collect(Collectors.toSet());
-        }
-        else if(doctorSymptoms!=null){
-            List<Doctor> doctors = doctorRepository.findAllByDoctorSymptoms(doctorSymptoms);
-            doctorIds = doctors.stream()
-                    .map(Doctor::getId)
-                    .collect(Collectors.toSet());
-        }
-        if(disease!=null){
-            List<Doctor> doctors = doctorRepository.findAllByDoctorSymptoms(doctorSymptoms);
-            doctorIds.addAll(doctors.stream()
-                    .map(Doctor::getId)
-                    .collect(Collectors.toSet()));
-        }
-        if(doctorId!=null){
+
+        if (doctorId != null) {
             doctorIds.add(doctorId);
         }
-        List<String> doctors = doctorIds.stream().toList();
-        List<Appointments> appointmentsList = new ArrayList<>();
-        LocalTime time = LocalTime.parse("00:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"));
-        LocalDateTime startDateTime = LocalDateTime.of(date,time);
-        time = LocalTime.parse("23:59:59",DateTimeFormatter.ofPattern("HH:mm:ss"));
-        LocalDateTime endDateTime = LocalDateTime.of(date,time);
 
+        return doctorIds;
+    }
 
-        ZonedDateTime zonedDateTime = startDateTime.atZone(ZoneId.of("Asia/Kolkata"));
-        ZonedDateTime zonedEndDateTime = endDateTime.atZone(ZoneId.of("Asia/Kolkata"));
-        Long epochStartDateTime = zonedDateTime.toEpochSecond();
-        Long epochEndDateTime = zonedEndDateTime.toEpochSecond();
+    private void addDateRangeCriteria(Query query, LocalDate startDate, LocalDate endDate) {
+        if (startDate != null) {
+            LocalTime startTime = LocalTime.parse("00:00:00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
 
+            if (endDate == null) {
+                endDate = startDate;
+            }
 
-        if (sort && patientLng!=null && patientLat!=null) {
-            double [] coordinates  = {patientLng,patientLat};
-            appointmentsList = appointmentsRepository.findDoctorsByCriteria(coordinates,500000,patientId,doctors,appointmentStatus,epochStartDateTime,epochEndDateTime);
+            LocalTime endTime = LocalTime.parse("23:59:59", DateTimeFormatter.ofPattern("HH:mm:ss"));
+            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+
+            ZonedDateTime zonedStartDateTime = startDateTime.atZone(ZoneId.of("Asia/Kolkata"));
+            ZonedDateTime zonedEndDateTime = endDateTime.atZone(ZoneId.of("Asia/Kolkata"));
+
+            Long epochStartDateTime = zonedStartDateTime.toEpochSecond();
+            Long epochEndDateTime = zonedEndDateTime.toEpochSecond();
+
+            query.addCriteria(Criteria.where("startDateTime").gte(epochStartDateTime).lte(epochEndDateTime));
         }
-        else{
-           appointmentsList = appointmentsRepository.findAllByPatientIdAndDoctorIdInAndAppointmentStatusAndStartDateTimeBetween(patientId,doctors,appointmentStatus,epochStartDateTime,epochEndDateTime);
-        }
-        List<Doctor> doctorList = new ArrayList<>();
+    }
+
+    private List<AppointmentResponse> buildAppointmentResponse(List<Appointments> appointmentsList, Double patientLat, Double patientLng) {
+        List<AppointmentResponse> response = new ArrayList<>();
 
         Set<String> uniqueDoctorIds = appointmentsList.stream()
                 .map(Appointments::getDoctorId)
                 .collect(Collectors.toSet());
 
-        doctorList = doctorRepository.findAllById(uniqueDoctorIds);
+        Set<String> uniquePatientIds = appointmentsList.stream()
+                .map(Appointments::getPatientId)
+                .collect(Collectors.toSet());
 
-        Map<String, Doctor> doctorMap = new HashMap<>();
-        doctorList.forEach(doctor -> {
-            String imageUrl = s3Service.generatePresignedUrl("doctors/"+doctor.getId()+"/profile.jpeg","doctor-image-1");
+        List<Doctor> doctorList = doctorRepository.findAllById(uniqueDoctorIds);
+        Map<String, Doctor> doctorMap = doctorList.stream().collect(Collectors.toMap(Doctor::getId, doctor -> {
+            String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1");
             doctor.setImageURL(imageUrl);
-            doctorMap.put(doctor.getId(), doctor);
-        });
+            return doctor;
+        }));
 
-        appointmentsList.parallelStream().forEach(e ->{
-            AppointmentResponse appointmentResponse = AppointmentResponse.builder().build();
-            appointmentResponse.setDoctor(doctorMap.get(e.getDoctorId()));
-            appointmentResponse.setAppointments(e);
-            if(patientLat!=null && patientLng!=null)
-            appointmentResponse.setDistance(DistanceCalculatorUtils.calculateDistance(patientLat,patientLng,e.getUserLocation().getCoordinates()[1],
-                    e.getUserLocation().getCoordinates()[0]));
+        List<Patient> patientList = patientRepository.findAllById(uniquePatientIds);
+        Map<String, Patient> patientMap = patientList.stream().collect(Collectors.toMap(Patient::getId, patient -> {
+            String imageUrl = s3Service.generatePresignedUrl("patients/" + patient.getId() + "/profile.jpg", "patient-image-1");
+            patient.setImageURL(imageUrl);
+            return patient;
+        }));
+
+        appointmentsList.forEach(appointment -> {
+            AppointmentResponse appointmentResponse = AppointmentResponse.builder()
+                    .doctor(doctorMap.get(appointment.getDoctorId()))
+                    .appointments(appointment)
+                    .distance(calculateDistance(patientLat, patientLng, appointment))
+                    .patient(patientMap.get(appointment.getPatientId()))
+                    .build();
+
             response.add(appointmentResponse);
-
         });
         return response;
+    }
+
+    private Double calculateDistance(Double patientLat, Double patientLng, Appointments appointment) {
+        if (patientLat != null && patientLng != null && appointment.getUserLocation() != null) {
+            return DistanceCalculatorUtils.calculateDistance(patientLat, patientLng,
+                    appointment.getUserLocation().getCoordinates()[1],
+                    appointment.getUserLocation().getCoordinates()[0]);
+        }
+        return null;
+    }
+
+    // Methods to retrieve doctors by criteria
+    private List<String> findDoctorIdsByDesignationAndLanguages(String designation, List<String> languages) {
+        return doctorRepository.findAllByDesignationAndLanguages(designation, languages)
+                .stream()
+                .map(Doctor::getId)
+                .collect(Collectors.toList());
+    }
+
+    private List<String> findDoctorIdsByDesignation(String designation) {
+        return doctorRepository.findAllByDesignation(designation)
+                .stream()
+                .map(Doctor::getId)
+                .collect(Collectors.toList());
+    }
+
+    private List<String> findDoctorIdsByLanguages(List<String> languages) {
+        return doctorRepository.findAllByLanguages(languages)
+                .stream()
+                .map(Doctor::getId)
+                .collect(Collectors.toList());
+    }
+
+    private List<String> findDoctorIdsBySymptomsAndLanguages(List<String> doctorSymptoms, List<String> languages) {
+        return doctorRepository.findAllByDoctorSymptomsAndLanguages(doctorSymptoms, languages)
+                .stream()
+                .map(Doctor::getId)
+                .collect(Collectors.toList());
+    }
+
+    private List<String> findDoctorIdsBySymptoms(List<String> doctorSymptoms) {
+        return doctorRepository.findAllByDoctorSymptoms(doctorSymptoms)
+                .stream()
+                .map(Doctor::getId)
+                .collect(Collectors.toList());
     }
 
 
@@ -241,5 +328,35 @@ public class AppointmentService {
             throw new ApplicationException(400,"no changes/updates found","no changes/updates found");
         }
     }
+
+
+//    public AppointmentResponse createDoctorAndAppointment(String patId,String name,Long dateTime,Long endDateTime,String designation,double lat,double lng,String locationName,String address){
+//        String []names = name.split(" ");
+//        double[] coordinates = new double[2];
+//        coordinates[0] =lng;
+//        coordinates[1] =lat;
+//        Doctor doctor = Doctor.builder()
+//                .firstName(names[0])
+//                .lastName(names.length>1?names[1]:"")
+//                .designation(designation)
+//                .locations(List.of(UserLocation.builder().coordinates(coordinates).locationName(locationName).address(address).type("point").build())).build();
+//        doctor = doctorRepository.save(doctor);
+//
+//        String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1");
+//
+//
+//        Appointments appointments = Appointments.builder()
+//                                    .doctorId(doctor.getId())
+//                                    .patientId(patId)
+//                                    .startDateTime(dateTime)
+//                                    .endDateTime(endDateTime)
+//                                    .appointmentStatus(2)
+//                                    .typed(false).prescription(Prescription.builder().url().build()).build();
+//
+//
+//
+//
+//
+//    }
 
 }

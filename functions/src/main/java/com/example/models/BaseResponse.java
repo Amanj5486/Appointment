@@ -1,4 +1,4 @@
-package com.example.appointment.models;
+package com.example.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

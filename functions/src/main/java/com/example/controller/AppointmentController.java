@@ -1,9 +1,9 @@
-package com.example.appointment.controller;
+package com.example.controller;
 
 
-import com.example.appointment.models.AppointmentResponse;
-import com.example.appointment.models.Appointments;
-import com.example.appointment.service.AppointmentService;
+import com.example.models.AppointmentResponse;
+import com.example.models.Appointments;
+import com.example.service.AppointmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,8 +32,9 @@ public class AppointmentController {
     public List<AppointmentResponse> getAppointment(@RequestParam(value = "appointment_id",required = false) String appointmentId,
                                                     @RequestParam(value = "patient_id",required = false)String patientId,
                                                     @RequestParam(value = "doctor_id",required = false)String doctorId,
-                                                    @RequestParam(value = "date",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-                                                    @RequestParam(value = "appoint_status",required = false) Integer appointmentStatus,
+                                                    @RequestParam(value = "start_date",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+                                                    @RequestParam(value = "end_date",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
+                                                    @RequestParam(value = "appoint_status",required = false) List<Integer> appointmentStatus,
                                                     @RequestParam(value = "designation",required = false) String designation,
                                                     @RequestParam(value = "doctor_symptom",required = false)List<String> doctorSymptoms,
                                                     @RequestParam(value = "languages",required = false)List<String> languages,
@@ -42,11 +43,13 @@ public class AppointmentController {
                                                     @RequestParam(value = "disease",required = false)List<String> disease
                                                     ){
 
-        return appointmentService.getAppointment(appointmentId,patientId,doctorId,date,appointmentStatus,designation,doctorSymptoms,languages,patientLat,patientLng,sort,disease);
+        return appointmentService.getAppointment(appointmentId,patientId,doctorId,startDate,endDate,appointmentStatus,designation,doctorSymptoms,languages,patientLat,patientLng,sort,disease);
     }
 
     @PostMapping
-    public Appointments updateAppointment(Appointments appointments){
+    public Appointments updateAppointment(@RequestBody  Appointments appointments){
+
+        System.out.println(appointments.toString());
 
         return appointmentService.updateAppointment(appointments);
     }

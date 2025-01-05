@@ -1,4 +1,4 @@
-package com.example.appointment.configuration;
+package com.example.configuration;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;

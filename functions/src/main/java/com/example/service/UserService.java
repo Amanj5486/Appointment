@@ -1,9 +1,9 @@
-package com.example.appointment.service;
+package com.example.service;
 
-import com.example.appointment.models.Doctor;
-import com.example.appointment.models.Patient;
-import com.example.appointment.repository.DoctorRepository;
-import com.example.appointment.repository.PatientRepository;
+import com.example.models.Doctor;
+import com.example.models.Patient;
+import com.example.repository.DoctorRepository;
+import com.example.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

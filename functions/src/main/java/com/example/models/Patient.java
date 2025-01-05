@@ -1,4 +1,4 @@
-package com.example.appointment.models;
+package com.example.models;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -67,6 +67,12 @@ public class Patient implements UserDetails {
 
     @JsonProperty("dob")
     private Long dob;
+
+    @JsonProperty("blood_grp")
+    private  String bloodGrp;
+
+    @JsonProperty("mobile_num")
+    private Long mobileNum;
 
     @Override
     public String getUsername() {
