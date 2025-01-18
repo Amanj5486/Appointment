@@ -1,335 +1,137 @@
 {
-  "version": "36.0.0",
+  "version": "38.0.1",
   "artifacts": {
-    "EC2Stack.assets": {
+    "InfraStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "EC2Stack.assets.json",
+        "file": "InfraStack.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "EC2Stack": {
+    "InfraStack": {
       "type": "aws:cloudformation:stack",
-      "environment": "aws://unknown-account/unknown-region",
+      "environment": "aws://425717139425/ap-south-1",
       "properties": {
-        "templateFile": "EC2Stack.template.json",
+        "templateFile": "InfraStack.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/35562c8e3e842e702e3774b71e4d540051e7afec75951eed24bf09acdfc129e9.json",
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::425717139425:role/cdk-hnb659fds-deploy-role-425717139425-ap-south-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::425717139425:role/cdk-hnb659fds-cfn-exec-role-425717139425-ap-south-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-425717139425-ap-south-1/c054e89b20842ab7c44574d4e3d4ad03e76e4f37e07a34a1de836eda73da2aa5.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "EC2Stack.assets"
+          "InfraStack.assets"
         ],
         "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "arn": "arn:${AWS::Partition}:iam::425717139425:role/cdk-hnb659fds-lookup-role-425717139425-ap-south-1",
           "requiresBootstrapStackVersion": 8,
           "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
         }
       },
       "dependencies": [
-        "EC2Stack.assets"
+        "InfraStack.assets"
       ],
       "metadata": {
-        "/EC2Stack/ExampleSpringbootApplicationVpc/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpc122F37DF"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/Subnet": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet1Subnet1135B75B"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/RouteTable": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet1RouteTable3C946727"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/RouteTableAssociation": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet1RouteTableAssociation6BA20BFF"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/DefaultRoute": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet1DefaultRoute83CD6C19"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/EIP": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet1EIP2D995315"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet1/NATGateway": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet1NATGatewayA24BFF61"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/Subnet": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet2Subnet6AFD8287"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/RouteTable": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet2RouteTable2B0C3F4E"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/RouteTableAssociation": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet2RouteTableAssociation25C25426"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PublicSubnet2/DefaultRoute": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPublicSubnet2DefaultRoute6CB0EB1D"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/Subnet": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPrivateSubnet1Subnet2C9429D9"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/RouteTable": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPrivateSubnet1RouteTable54CB5BA3"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/RouteTableAssociation": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPrivateSubnet1RouteTableAssociation79FBB9C2"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet1/DefaultRoute": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPrivateSubnet1DefaultRouteCF51C192"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/Subnet": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPrivateSubnet2Subnet3E5570F4"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/RouteTable": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPrivateSubnet2RouteTable5DB4CF36"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/RouteTableAssociation": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPrivateSubnet2RouteTableAssociation8588BB75"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/PrivateSubnet2/DefaultRoute": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcPrivateSubnet2DefaultRoute9F6F6520"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/IGW": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcIGW66D3E47D"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/VPCGW": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcVPCGW37552D16"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationVpc/RestrictDefaultSecurityGroupCustomResource/Default": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootApplicationVpcRestrictDefaultSecurityGroupCustomResource917DE330"
-          }
-        ],
-        "/EC2Stack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
-          }
-        ],
-        "/EC2Stack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootApplicationCluster/Resource": [
+        "/InfraStack/ExampleSpringbootApplicationCluster/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "ExampleSpringbootApplicationCluster54107DB7"
           }
         ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/Resource": [
+        "/InfraStack/TaskDef/TaskRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationLB51F462A9"
+            "data": "TaskDefTaskRole1EDB4A67"
           }
         ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/SecurityGroup/Resource": [
+        "/InfraStack/TaskDef/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationLBSecurityGroup6B3B58BE"
+            "data": "TaskDef54694570"
           }
         ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/SecurityGroup/to EC2StackExampleSpringbootLoadBalancedApplicationServiceSecurityGroup08011608:8080": [
+        "/InfraStack/TaskDef/ExecutionRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationLBSecurityGrouptoEC2StackExampleSpringbootLoadBalancedApplicationServiceSecurityGroup080116088080D640489D"
+            "data": "TaskDefExecutionRoleB4775C97"
           }
         ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/PublicListener/Resource": [
+        "/InfraStack/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationLBPublicListener9D0885BA"
+            "data": "TaskDefExecutionRoleDefaultPolicy0DBB737A"
           }
         ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/LB/PublicListener/ECSGroup/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationLBPublicListenerECSGroup5BD16892"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/LoadBalancerDNS": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationLoadBalancerDNS140E6D8F"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/ServiceURL": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationServiceURLA00217D8"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/TaskRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationTaskDefTaskRole14448A02"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationTaskDef52AF6454"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/web/LogGroup/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationTaskDefwebLogGroupBAA4C89B"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/ExecutionRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationTaskDefExecutionRole8425C3CD"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationTaskDefExecutionRoleDefaultPolicyB604F8A7"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/Service": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationService8EB7DAAD"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/SecurityGroup/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationServiceSecurityGroup0B741ECD"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/SecurityGroup/from EC2StackExampleSpringbootLoadBalancedApplicationLBSecurityGroupE2A5CC43:8080": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationServiceSecurityGroupfromEC2StackExampleSpringbootLoadBalancedApplicationLBSecurityGroupE2A5CC438080768D4DF8"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/TaskCount/Target/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationServiceTaskCountTargetB8913899"
-          }
-        ],
-        "/EC2Stack/ExampleSpringbootLoadBalancedApplication/Service/TaskCount/Target/CpuAutoScaling/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExampleSpringbootLoadBalancedApplicationServiceTaskCountTargetCpuAutoScaling40CE7660"
-          }
-        ],
-        "/EC2Stack/EcsTaskExecutionRole/Resource": [
+        "/InfraStack/EcsTaskExecutionRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "EcsTaskExecutionRoleC0B6A84D"
           }
         ],
-        "/EC2Stack/EcsTaskExecutionRole/DefaultPolicy/Resource": [
+        "/InfraStack/EcsTaskExecutionRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "EcsTaskExecutionRoleDefaultPolicyDCEEFDC3"
           }
         ],
-        "/EC2Stack/LoadBalancerURL": [
+        "/InfraStack/FargateService/Service": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "LoadBalancerURL"
+            "data": "FargateServiceAC2B3B85"
           }
         ],
-        "/EC2Stack/CDKMetadata/Default": [
+        "/InfraStack/FargateService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateServiceSecurityGroup0A0E79CB"
+          }
+        ],
+        "/InfraStack/ExistingRestAPI/Default/appointment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExistingRestAPIappointmentBF5AEED3"
+          }
+        ],
+        "/InfraStack/ExistingRestAPI/Default/appointment/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExistingRestAPIappointmentPOST8DC5884D"
+          }
+        ],
+        "/InfraStack/ExistingRestAPI/Default/appointment/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExistingRestAPIappointmentGETE2E02F13"
+          }
+        ],
+        "/InfraStack/ExistingRestAPI/Default/appointment/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExistingRestAPIappointmentPUT2B52F45D"
+          }
+        ],
+        "/InfraStack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadata"
           }
         ],
-        "/EC2Stack/CDKMetadata/Condition": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CDKMetadataAvailable"
-          }
-        ],
-        "/EC2Stack/BootstrapVersion": [
+        "/InfraStack/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BootstrapVersion"
           }
         ],
-        "/EC2Stack/CheckBootstrapVersion": [
+        "/InfraStack/CheckBootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CheckBootstrapVersion"
           }
         ]
       },
-      "displayName": "EC2Stack"
+      "displayName": "InfraStack"
     },
     "Tree": {
       "type": "cdk:tree",
