@@ -59,10 +59,412 @@
                   "fqn": "aws-cdk-lib.aws_ecs.CfnCluster",
                   "version": "2.173.4"
                 }
+              },
+              "ExampleSpringbootApplicationCluster": {
+                "id": "ExampleSpringbootApplicationCluster",
+                "path": "InfraStack/ExampleSpringbootApplicationCluster/ExampleSpringbootApplicationCluster",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::ClusterCapacityProviderAssociations",
+                  "aws:cdk:cloudformation:props": {
+                    "capacityProviders": [
+                      {
+                        "Ref": "AsgCapacityProvider760D11D9"
+                      }
+                    ],
+                    "cluster": {
+                      "Ref": "ExampleSpringbootApplicationCluster54107DB7"
+                    },
+                    "defaultCapacityProviderStrategy": []
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnClusterCapacityProviderAssociations",
+                  "version": "2.173.4"
+                }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_ecs.Cluster",
+              "version": "2.173.4"
+            }
+          },
+          "EcsAutoScalingGroup": {
+            "id": "EcsAutoScalingGroup",
+            "path": "InfraStack/EcsAutoScalingGroup",
+            "children": {
+              "InstanceSecurityGroup": {
+                "id": "InstanceSecurityGroup",
+                "path": "InfraStack/EcsAutoScalingGroup/InstanceSecurityGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "InfraStack/EcsAutoScalingGroup/InstanceSecurityGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "groupDescription": "InfraStack/EcsAutoScalingGroup/InstanceSecurityGroup",
+                        "securityGroupEgress": [
+                          {
+                            "cidrIp": "0.0.0.0/0",
+                            "description": "Allow all outbound traffic by default",
+                            "ipProtocol": "-1"
+                          }
+                        ],
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "InfraStack/EcsAutoScalingGroup"
+                          }
+                        ],
+                        "vpcId": "vpc-00045a18201a0a1c7"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                      "version": "2.173.4"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                  "version": "2.173.4"
+                }
+              },
+              "InstanceRole": {
+                "id": "InstanceRole",
+                "path": "InfraStack/EcsAutoScalingGroup/InstanceRole",
+                "children": {
+                  "ImportInstanceRole": {
+                    "id": "ImportInstanceRole",
+                    "path": "InfraStack/EcsAutoScalingGroup/InstanceRole/ImportInstanceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.173.4"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "InfraStack/EcsAutoScalingGroup/InstanceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "ec2.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "InfraStack/EcsAutoScalingGroup"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.173.4"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "InfraStack/EcsAutoScalingGroup/InstanceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "InfraStack/EcsAutoScalingGroup/InstanceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "ecs:DeregisterContainerInstance",
+                                    "ecs:RegisterContainerInstance",
+                                    "ecs:Submit*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "ExampleSpringbootApplicationCluster54107DB7",
+                                      "Arn"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "ecs:Poll",
+                                    "ecs:StartTelemetrySession"
+                                  ],
+                                  "Condition": {
+                                    "ArnEquals": {
+                                      "ecs:cluster": {
+                                        "Fn::GetAtt": [
+                                          "ExampleSpringbootApplicationCluster54107DB7",
+                                          "Arn"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "ecr:GetAuthorizationToken",
+                                    "ecs:DiscoverPollEndpoint",
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "EcsAutoScalingGroupInstanceRoleDefaultPolicy75B713DC",
+                            "roles": [
+                              {
+                                "Ref": "EcsAutoScalingGroupInstanceRole41D581F6"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.173.4"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.173.4"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.173.4"
+                }
+              },
+              "InstanceProfile": {
+                "id": "InstanceProfile",
+                "path": "InfraStack/EcsAutoScalingGroup/InstanceProfile",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
+                  "aws:cdk:cloudformation:props": {
+                    "roles": [
+                      {
+                        "Ref": "EcsAutoScalingGroupInstanceRole41D581F6"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnInstanceProfile",
+                  "version": "2.173.4"
+                }
+              },
+              "ImportedInstanceProfile": {
+                "id": "ImportedInstanceProfile",
+                "path": "InfraStack/EcsAutoScalingGroup/ImportedInstanceProfile",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.173.4"
+                }
+              },
+              "LaunchTemplate": {
+                "id": "LaunchTemplate",
+                "path": "InfraStack/EcsAutoScalingGroup/LaunchTemplate",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "InfraStack/EcsAutoScalingGroup/LaunchTemplate/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::LaunchTemplate",
+                      "aws:cdk:cloudformation:props": {
+                        "launchTemplateData": {
+                          "iamInstanceProfile": {
+                            "arn": {
+                              "Fn::GetAtt": [
+                                "EcsAutoScalingGroupInstanceProfile729E227E",
+                                "Arn"
+                              ]
+                            }
+                          },
+                          "imageId": {
+                            "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+                          },
+                          "instanceType": "t2.micro",
+                          "monitoring": {
+                            "enabled": false
+                          },
+                          "securityGroupIds": [
+                            {
+                              "Fn::GetAtt": [
+                                "EcsAutoScalingGroupInstanceSecurityGroupF98CD536",
+                                "GroupId"
+                              ]
+                            }
+                          ],
+                          "tagSpecifications": [
+                            {
+                              "resourceType": "instance",
+                              "tags": [
+                                {
+                                  "key": "Name",
+                                  "value": "InfraStack/EcsAutoScalingGroup/LaunchTemplate"
+                                }
+                              ]
+                            },
+                            {
+                              "resourceType": "volume",
+                              "tags": [
+                                {
+                                  "key": "Name",
+                                  "value": "InfraStack/EcsAutoScalingGroup/LaunchTemplate"
+                                }
+                              ]
+                            }
+                          ],
+                          "userData": {
+                            "Fn::Base64": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "#!/bin/bash\necho ECS_CLUSTER=",
+                                  {
+                                    "Ref": "ExampleSpringbootApplicationCluster54107DB7"
+                                  },
+                                  " >> /etc/ecs/ecs.config\nsudo iptables --insert FORWARD 1 --in-interface docker+ --destination 169.254.169.254/32 --jump DROP\nsudo service iptables save\necho ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config"
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "tagSpecifications": [
+                          {
+                            "resourceType": "launch-template",
+                            "tags": [
+                              {
+                                "key": "Name",
+                                "value": "InfraStack/EcsAutoScalingGroup/LaunchTemplate"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnLaunchTemplate",
+                      "version": "2.173.4"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.LaunchTemplate",
+                  "version": "2.173.4"
+                }
+              },
+              "ASG": {
+                "id": "ASG",
+                "path": "InfraStack/EcsAutoScalingGroup/ASG",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::AutoScaling::AutoScalingGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "launchTemplate": {
+                      "launchTemplateId": {
+                        "Ref": "EcsAutoScalingGroupLaunchTemplateCC91599E"
+                      },
+                      "version": {
+                        "Fn::GetAtt": [
+                          "EcsAutoScalingGroupLaunchTemplateCC91599E",
+                          "LatestVersionNumber"
+                        ]
+                      }
+                    },
+                    "maxSize": "1",
+                    "minSize": "1",
+                    "newInstancesProtectedFromScaleIn": true,
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "InfraStack/EcsAutoScalingGroup",
+                        "propagateAtLaunch": true
+                      }
+                    ],
+                    "vpcZoneIdentifier": [
+                      "subnet-022bd181b77ffd0e0",
+                      "subnet-09e250ad382e36870",
+                      "subnet-04ebbce20171c45aa"
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_autoscaling.CfnAutoScalingGroup",
+                  "version": "2.173.4"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_autoscaling.AutoScalingGroup",
+              "version": "2.173.4"
+            }
+          },
+          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
+            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "InfraStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.173.4"
+            }
+          },
+          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118": {
+            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "InfraStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.173.4"
+            }
+          },
+          "AsgCapacityProvider": {
+            "id": "AsgCapacityProvider",
+            "path": "InfraStack/AsgCapacityProvider",
+            "children": {
+              "AsgCapacityProvider": {
+                "id": "AsgCapacityProvider",
+                "path": "InfraStack/AsgCapacityProvider/AsgCapacityProvider",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::CapacityProvider",
+                  "aws:cdk:cloudformation:props": {
+                    "autoScalingGroupProvider": {
+                      "autoScalingGroupArn": {
+                        "Ref": "EcsAutoScalingGroupASG7BF0B10A"
+                      },
+                      "managedScaling": {
+                        "status": "ENABLED",
+                        "targetCapacity": 100
+                      },
+                      "managedTerminationProtection": "ENABLED"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnCapacityProvider",
+                  "version": "2.173.4"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.AsgCapacityProvider",
               "version": "2.173.4"
             }
           },
@@ -123,12 +525,13 @@
                       {
                         "essential": true,
                         "image": {
-                          "Fn::Sub": "425717139425.dkr.ecr.ap-south-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-425717139425-ap-south-1:ee957f6723a500d29d3f9e827177bf6f5bcaefb2847f2c656ec46565f616e9c3"
+                          "Fn::Sub": "425717139425.dkr.ecr.ap-south-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-425717139425-ap-south-1:7e200a9f93c8587f05f099a08ce4de70255b54d88c0201fafbde4ecae38e3a7c"
                         },
                         "name": "SpringBootApp",
                         "portMappings": [
                           {
                             "containerPort": 8080,
+                            "hostPort": 0,
                             "protocol": "tcp"
                           }
                         ]
@@ -143,9 +546,9 @@
                     },
                     "family": "InfraStackTaskDefE1F4AEA1",
                     "memory": "512",
-                    "networkMode": "awsvpc",
+                    "networkMode": "bridge",
                     "requiresCompatibilities": [
-                      "FARGATE"
+                      "EC2"
                     ],
                     "taskRoleArn": {
                       "Fn::GetAtt": [
@@ -303,7 +706,7 @@
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
+              "fqn": "aws-cdk-lib.aws_ecs.TaskDefinition",
               "version": "2.173.4"
             }
           },
@@ -414,13 +817,13 @@
               "version": "2.173.4"
             }
           },
-          "FargateService": {
-            "id": "FargateService",
-            "path": "InfraStack/FargateService",
+          "Ec2Service": {
+            "id": "Ec2Service",
+            "path": "InfraStack/Ec2Service",
             "children": {
               "Service": {
                 "id": "Service",
-                "path": "InfraStack/FargateService/Service",
+                "path": "InfraStack/Ec2Service/Service",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::Service",
                   "aws:cdk:cloudformation:props": {
@@ -433,25 +836,8 @@
                     },
                     "desiredCount": 1,
                     "enableEcsManagedTags": false,
-                    "launchType": "FARGATE",
-                    "networkConfiguration": {
-                      "awsvpcConfiguration": {
-                        "assignPublicIp": "DISABLED",
-                        "subnets": [
-                          "subnet-022bd181b77ffd0e0",
-                          "subnet-09e250ad382e36870",
-                          "subnet-04ebbce20171c45aa"
-                        ],
-                        "securityGroups": [
-                          {
-                            "Fn::GetAtt": [
-                              "FargateServiceSecurityGroup0A0E79CB",
-                              "GroupId"
-                            ]
-                          }
-                        ]
-                      }
-                    },
+                    "launchType": "EC2",
+                    "schedulingStrategy": "REPLICA",
                     "taskDefinition": {
                       "Ref": "TaskDef54694570"
                     }
@@ -461,42 +847,10 @@
                   "fqn": "aws-cdk-lib.aws_ecs.CfnService",
                   "version": "2.173.4"
                 }
-              },
-              "SecurityGroup": {
-                "id": "SecurityGroup",
-                "path": "InfraStack/FargateService/SecurityGroup",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "InfraStack/FargateService/SecurityGroup/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
-                      "aws:cdk:cloudformation:props": {
-                        "groupDescription": "InfraStack/FargateService/SecurityGroup",
-                        "securityGroupEgress": [
-                          {
-                            "cidrIp": "0.0.0.0/0",
-                            "description": "Allow all outbound traffic by default",
-                            "ipProtocol": "-1"
-                          }
-                        ],
-                        "vpcId": "vpc-00045a18201a0a1c7"
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
-                      "version": "2.173.4"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
-                  "version": "2.173.4"
-                }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ecs.FargateService",
+              "fqn": "aws-cdk-lib.aws_ecs.Ec2Service",
               "version": "2.173.4"
             }
           },
@@ -543,7 +897,7 @@
                                 "integration": {
                                   "type": "HTTP_PROXY",
                                   "uri": {
-                                    "Ref": "FargateServiceAC2B3B85"
+                                    "Ref": "Ec2Service04A33183"
                                   },
                                   "integrationHttpMethod": "GET"
                                 },
@@ -579,7 +933,7 @@
                                 "integration": {
                                   "type": "HTTP_PROXY",
                                   "uri": {
-                                    "Ref": "FargateServiceAC2B3B85"
+                                    "Ref": "Ec2Service04A33183"
                                   },
                                   "integrationHttpMethod": "GET"
                                 },
@@ -615,7 +969,7 @@
                                 "integration": {
                                   "type": "HTTP_PROXY",
                                   "uri": {
-                                    "Ref": "FargateServiceAC2B3B85"
+                                    "Ref": "Ec2Service04A33183"
                                   },
                                   "integrationHttpMethod": "GET"
                                 },

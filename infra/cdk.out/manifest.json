@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::425717139425:role/cdk-hnb659fds-deploy-role-425717139425-ap-south-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::425717139425:role/cdk-hnb659fds-cfn-exec-role-425717139425-ap-south-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-425717139425-ap-south-1/c054e89b20842ab7c44574d4e3d4ad03e76e4f37e07a34a1de836eda73da2aa5.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-425717139425-ap-south-1/8e036f064926ac3c239d82f83cd35fb97db8066abdc42def32509d539b7fa9ef.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -38,6 +38,60 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "ExampleSpringbootApplicationCluster54107DB7"
+          }
+        ],
+        "/InfraStack/ExampleSpringbootApplicationCluster/ExampleSpringbootApplicationCluster": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExampleSpringbootApplicationCluster5A871B8A"
+          }
+        ],
+        "/InfraStack/EcsAutoScalingGroup/InstanceSecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsAutoScalingGroupInstanceSecurityGroupF98CD536"
+          }
+        ],
+        "/InfraStack/EcsAutoScalingGroup/InstanceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsAutoScalingGroupInstanceRole41D581F6"
+          }
+        ],
+        "/InfraStack/EcsAutoScalingGroup/InstanceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsAutoScalingGroupInstanceRoleDefaultPolicy75B713DC"
+          }
+        ],
+        "/InfraStack/EcsAutoScalingGroup/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsAutoScalingGroupInstanceProfile729E227E"
+          }
+        ],
+        "/InfraStack/EcsAutoScalingGroup/LaunchTemplate/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsAutoScalingGroupLaunchTemplateCC91599E"
+          }
+        ],
+        "/InfraStack/EcsAutoScalingGroup/ASG": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsAutoScalingGroupASG7BF0B10A"
+          }
+        ],
+        "/InfraStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/InfraStack/AsgCapacityProvider/AsgCapacityProvider": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AsgCapacityProvider760D11D9"
           }
         ],
         "/InfraStack/TaskDef/TaskRole/Resource": [
@@ -76,16 +130,10 @@
             "data": "EcsTaskExecutionRoleDefaultPolicyDCEEFDC3"
           }
         ],
-        "/InfraStack/FargateService/Service": [
+        "/InfraStack/Ec2Service/Service": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "FargateServiceAC2B3B85"
-          }
-        ],
-        "/InfraStack/FargateService/SecurityGroup/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "FargateServiceSecurityGroup0A0E79CB"
+            "data": "Ec2Service04A33183"
           }
         ],
         "/InfraStack/ExistingRestAPI/Default/appointment/Resource": [
