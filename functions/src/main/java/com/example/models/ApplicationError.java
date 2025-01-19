@@ -5,7 +5,10 @@ import lombok.Getter;
 @Getter
 public enum ApplicationError {
     USER_EXIST(404, "username / user  already exist ", "username already exits"),
-    APPOINTMENT_NOT_FOUND(404, "appointment not found ", "appointment not found");
+    APPOINTMENT_NOT_FOUND(404, "appointment not found ", "appointment not found"),
+    APPOINTMENT_DOCTOR_NOT_FOUND(404, "appointment doctor not found ", "appointment doctor not found"),
+    APPOINTMENT_PATIENT_NOT_FOUND(404, "appointment patient not found ", "appointment patient not found");
+
 
 
     private final int code;

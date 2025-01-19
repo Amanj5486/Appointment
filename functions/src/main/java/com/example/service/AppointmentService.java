@@ -49,7 +49,8 @@ public class AppointmentService {
 
 
 
-    public List<AppointmentResponse> getAppointment(String appointmentId, String patientId, String doctorId, LocalDate startDate, LocalDate endDate, List<Integer> appointmentStatus, String designation, List<String> doctorSymptoms, List<String> languages, Double patientLat, Double patientLng, Boolean sort, List<String> disease) {
+    public List<AppointmentResponse> getAppointment(String appointmentId, String patientId, String doctorId, LocalDate startDate, LocalDate endDate, List<Integer> appointmentStatus, String designation, List<String> doctorSymptoms, List<String> languages,
+                                                    Double patientLat, Double patientLng, Boolean sort, List<String> disease,Integer page,Integer pageSize,Integer params) {
         List<AppointmentResponse> response = new ArrayList<>();
 
         // Handle appointment by ID
@@ -60,16 +61,19 @@ public class AppointmentService {
             }
 
             Appointments appointments = optionalAppointments.get();
-            Doctor doctor = doctorRepository.findById(appointments.getDoctorId()).orElseThrow(() -> new ApplicationException(ApplicationError.APPOINTMENT_NOT_FOUND));
+            Doctor doctor = doctorRepository.findById(appointments.getDoctorId()).orElseThrow(() -> new ApplicationException(ApplicationError.APPOINTMENT_DOCTOR_NOT_FOUND));
             String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1");
             doctor.setImageURL(imageUrl);
+            Patient patient = null;
+            if(appointments.getPatientId()!=null)
+               patient = patientRepository.findById(appointments.getPatientId()).orElseThrow(() -> new ApplicationException(ApplicationError.APPOINTMENT_PATIENT_NOT_FOUND));
 
             AppointmentResponse appointmentResponse = AppointmentResponse.builder()
                     .doctor(doctor)
                     .appointments(appointments)
+                    .patient(patient)
                     .distance(calculateDistance(patientLat, patientLng, appointments))
                     .build();
-
             response.add(appointmentResponse);
             return response;
         }
@@ -97,9 +101,10 @@ public class AppointmentService {
             Point location = new Point(patientLng, patientLat);
             query.addCriteria(Criteria.where("locations").near(location).maxDistance(500000));
         }
+        query.skip(page * pageSize).limit(pageSize);
 
         List<Appointments> appointmentsList = mongoTemplate.find(query, Appointments.class);
-        return buildAppointmentResponse(appointmentsList, patientLat, patientLng);
+        return buildAppointmentResponse(appointmentsList, patientLat, patientLng,params);
     }
 
     private Set<String> findDoctorsByCriteria(String designation, List<String> doctorSymptoms, List<String> languages, List<String> disease, String doctorId) {
@@ -152,43 +157,56 @@ public class AppointmentService {
         }
     }
 
-    private List<AppointmentResponse> buildAppointmentResponse(List<Appointments> appointmentsList, Double patientLat, Double patientLng) {
+    private List<AppointmentResponse> buildAppointmentResponse(List<Appointments> appointmentsList, Double patientLat, Double patientLng,Integer params) {
         List<AppointmentResponse> response = new ArrayList<>();
+        Map<String,Doctor> doctorMap = new HashMap<>();
+        if(params==0 || params==1){
+            doctorMap = getDoctorMap(appointmentsList);
+        }
+        Map<String,Patient> patientMap = new HashMap<>();
+        if(params==0 || params==2){
+            patientMap = getPatientMap(appointmentsList);
+        }
+        AppointmentResponse appointmentResponse = AppointmentResponse.builder().build();
+        for(Appointments appointment :appointmentsList){
+            appointmentResponse = AppointmentResponse.builder()
+                    .doctor(doctorMap.getOrDefault(appointment.getDoctorId(),null))
+                    .appointments(appointment)
+                    .distance(calculateDistance(patientLat, patientLng, appointment))
+                    .patient(patientMap.getOrDefault(appointment.getPatientId(),null))
+                    .build();
+            response.add(appointmentResponse);
 
+        }
+
+        return response;
+    }
+
+
+    Map<String,Doctor> getDoctorMap(List<Appointments> appointmentsList){
         Set<String> uniqueDoctorIds = appointmentsList.stream()
-                .map(Appointments::getDoctorId)
-                .collect(Collectors.toSet());
-
-        Set<String> uniquePatientIds = appointmentsList.stream()
                 .map(Appointments::getPatientId)
                 .collect(Collectors.toSet());
-
         List<Doctor> doctorList = doctorRepository.findAllById(uniqueDoctorIds);
-        Map<String, Doctor> doctorMap = doctorList.stream().collect(Collectors.toMap(Doctor::getId, doctor -> {
+        return doctorList.stream().collect(Collectors.toMap(Doctor::getId, doctor -> {
             String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1");
             doctor.setImageURL(imageUrl);
             return doctor;
         }));
 
+    }
+    Map<String,Patient> getPatientMap(List<Appointments> appointmentsList){
+        Set<String> uniquePatientIds = appointmentsList.stream()
+                .map(Appointments::getDoctorId)
+                .collect(Collectors.toSet());
         List<Patient> patientList = patientRepository.findAllById(uniquePatientIds);
-        Map<String, Patient> patientMap = patientList.stream().collect(Collectors.toMap(Patient::getId, patient -> {
+        return patientList.stream().collect(Collectors.toMap(Patient::getId, patient -> {
             String imageUrl = s3Service.generatePresignedUrl("patients/" + patient.getId() + "/profile.jpg", "patient-image-1");
             patient.setImageURL(imageUrl);
             return patient;
         }));
-
-        appointmentsList.forEach(appointment -> {
-            AppointmentResponse appointmentResponse = AppointmentResponse.builder()
-                    .doctor(doctorMap.get(appointment.getDoctorId()))
-                    .appointments(appointment)
-                    .distance(calculateDistance(patientLat, patientLng, appointment))
-                    .patient(patientMap.get(appointment.getPatientId()))
-                    .build();
-
-            response.add(appointmentResponse);
-        });
-        return response;
     }
+
 
     private Double calculateDistance(Double patientLat, Double patientLng, Appointments appointment) {
         if (patientLat != null && patientLng != null && appointment.getUserLocation() != null) {
@@ -237,12 +255,13 @@ public class AppointmentService {
 
 
 
-    public void setAvailability(String doctorId, LocalDate date, Map<LocalTime,LocalTime> time, Integer incrementMinutes,int locationId){
+    public void setAvailability(String doctorId, LocalDate date, Map<LocalTime,LocalTime> time, Integer incrementMinutes,int locationId,int priority){
         Doctor doctor = doctorRepository.findById(doctorId).get();
         UserLocation userLocation = doctor.getLocations().get(locationId);
         List<Appointments> appointmentsList = new ArrayList<>();
         Long startDateTimeEpoch;
         Long endDateTimeEpoch;
+        priority = priority==0?0:4;
         for (Map.Entry<LocalTime,LocalTime> entry : time.entrySet()) {
             LocalTime  currentKey = entry.getKey();
             LocalTime endTime = entry.getValue();
@@ -254,7 +273,7 @@ public class AppointmentService {
                 startDateTimeEpoch = zonedDateTime.toEpochSecond();
                 endDateTimeEpoch = zonedEndDateTime.toEpochSecond();
                 Appointments appointments = Appointments.builder().doctorId(doctorId)
-                        .appointmentStatus(0)
+                        .appointmentStatus(priority)
                         .userLocation(userLocation)
                         .startDateTime(startDateTimeEpoch)
                         .endDateTime(endDateTimeEpoch).build();
@@ -290,7 +309,7 @@ public class AppointmentService {
         }
         Optional<Appointments> optionalExistingAppointments =  appointmentsRepository.findById(appointment.getId());
         if (optionalExistingAppointments.isEmpty()) {
-            throw new ApplicationException(400,"apointment not found","appointment not found");
+            throw new ApplicationException(400,"appointment not found","appointment not found");
         }
 
         Appointments existingAppointments = optionalExistingAppointments.get();

@@ -40,27 +40,29 @@ public class AppointmentController {
                                                     @RequestParam(value = "languages",required = false)List<String> languages,
     @RequestParam(value="patient_lat",required = false) Double patientLat, @RequestParam(value="patient_lng",required = false) Double patientLng,
                                                     @RequestParam(value = "sort",required = false,defaultValue = "false") Boolean sort,
-                                                    @RequestParam(value = "disease",required = false)List<String> disease
+                                                    @RequestParam(value = "disease",required = false)List<String> disease,
+                                                    @RequestParam(value = "page",required = true,defaultValue = "0") Integer page,
+                                                    @RequestParam(value = "page_size",required = true,defaultValue = "10") Integer pageSize,
+                                                    @RequestParam(value = "params",required = true,defaultValue = "0") Integer params // 0 means doctor & patient & appointment in response , 1 means appointment & doctor in response , 2 means appointment & patient in response
                                                     ){
 
-        return appointmentService.getAppointment(appointmentId,patientId,doctorId,startDate,endDate,appointmentStatus,designation,doctorSymptoms,languages,patientLat,patientLng,sort,disease);
+        return appointmentService.getAppointment(appointmentId,patientId,doctorId,startDate,endDate,appointmentStatus,designation,doctorSymptoms,languages,patientLat,patientLng,sort,disease,page,pageSize,params);
     }
 
     @PostMapping
     public Appointments updateAppointment(@RequestBody  Appointments appointments){
-
-        System.out.println(appointments.toString());
 
         return appointmentService.updateAppointment(appointments);
     }
 
     @PutMapping
     public String setAvailability(@RequestParam(value = "doctor_id") String doctorId, @RequestParam(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") String date,
-                                  @RequestParam(value = "time") String timeRange, @RequestParam(value = "increment_minutes")Integer incrementMinutes,@RequestParam(value = "location_id",required = false)Integer locationId){
+                                  @RequestParam(value = "time") String timeRange, @RequestParam(value = "increment_minutes")Integer incrementMinutes,@RequestParam(value = "location_id",required = false)Integer locationId
+    ,@RequestParam(value = "priority",required = false,defaultValue = "0") Integer priority){
         try {
             LocalDate date1= LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             Map<LocalTime, LocalTime> time = parseTimeRange(timeRange);
-            appointmentService.setAvailability(doctorId,date1,time,incrementMinutes,locationId);
+            appointmentService.setAvailability(doctorId,date1,time,incrementMinutes,locationId,priority);
             return "saved";
         }
         catch (Exception e){
