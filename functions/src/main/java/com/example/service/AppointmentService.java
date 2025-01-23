@@ -185,7 +185,7 @@ public class AppointmentService {
 
     Map<String,Doctor> getDoctorMap(List<Appointments> appointmentsList){
         Set<String> uniqueDoctorIds = appointmentsList.stream()
-                .map(Appointments::getPatientId)
+                .map(Appointments::getDoctorId)
                 .collect(Collectors.toSet());
         List<Doctor> doctorList = doctorRepository.findAllById(uniqueDoctorIds);
         return doctorList.stream().collect(Collectors.toMap(Doctor::getId, doctor -> {
@@ -197,7 +197,7 @@ public class AppointmentService {
     }
     Map<String,Patient> getPatientMap(List<Appointments> appointmentsList){
         Set<String> uniquePatientIds = appointmentsList.stream()
-                .map(Appointments::getDoctorId)
+                .map(Appointments::getPatientId)
                 .collect(Collectors.toSet());
         List<Patient> patientList = patientRepository.findAllById(uniquePatientIds);
         return patientList.stream().collect(Collectors.toMap(Patient::getId, patient -> {
