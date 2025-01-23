@@ -81,19 +81,19 @@ public class Doctor implements UserDetails {
     String timing;
 
     @JsonProperty("patient_rec")
-    String patientRec;
+    Integer patientRec;
 
     @JsonProperty("hospital_rec")
-    String hospitalRec;
+    Double hospitalRec;
 
     @JsonProperty("fee")
     String fee;
 
     @JsonProperty("n_reviews")
-    String nReviews;
+    Integer nReviews;
 
     @JsonProperty("n_patients")
-    String nPatients;
+    Integer nPatients;
 
     @JsonProperty("locations")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
