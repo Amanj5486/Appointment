@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.amazonaws.HttpMethod;
 import com.example.exception.ApplicationException;
 import com.example.models.*;
 import com.example.repository.AppointmentsRepository;
@@ -62,7 +63,7 @@ public class AppointmentService {
 
             Appointments appointments = optionalAppointments.get();
             Doctor doctor = doctorRepository.findById(appointments.getDoctorId()).orElseThrow(() -> new ApplicationException(ApplicationError.APPOINTMENT_DOCTOR_NOT_FOUND));
-            String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1");
+            String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1", HttpMethod.GET,1);
             doctor.setImageURL(imageUrl);
             Patient patient = null;
             if(appointments.getPatientId()!=null)
@@ -189,7 +190,7 @@ public class AppointmentService {
                 .collect(Collectors.toSet());
         List<Doctor> doctorList = doctorRepository.findAllById(uniqueDoctorIds);
         return doctorList.stream().collect(Collectors.toMap(Doctor::getId, doctor -> {
-            String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1");
+            String imageUrl = s3Service.generatePresignedUrl("doctors/" + doctor.getId() + "/profile.jpg", "doctor-image-1",HttpMethod.GET,1);
             doctor.setImageURL(imageUrl);
             return doctor;
         }));
@@ -201,7 +202,7 @@ public class AppointmentService {
                 .collect(Collectors.toSet());
         List<Patient> patientList = patientRepository.findAllById(uniquePatientIds);
         return patientList.stream().collect(Collectors.toMap(Patient::getId, patient -> {
-            String imageUrl = s3Service.generatePresignedUrl("patients/" + patient.getId() + "/profile.jpg", "patient-image-1");
+            String imageUrl = s3Service.generatePresignedUrl("patients/" + patient.getId() + "/profile.jpg", "patient-image-1",HttpMethod.GET,1);
             patient.setImageURL(imageUrl);
             return patient;
         }));
@@ -303,7 +304,7 @@ public class AppointmentService {
 //        return appointment;
 //    }
 
-    public Appointments updateAppointment(Appointments appointment){
+    public AppointmentResponse updateAppointment(Appointments appointment){
         if(appointment.getId()==null){
             throw new ApplicationException(400,"appointment id null","provide appointment id to update");
         }
@@ -341,7 +342,20 @@ public class AppointmentService {
             }
         }
         if(updated){
-            return appointmentsRepository.save(existingAppointments);
+
+            Appointments appointments = appointmentsRepository.save(existingAppointments);
+            if(appointments.getPrescription()!=null){
+                String audioUrl = s3Service.generatePresignedUrl("appointments/" + appointments.getId() + "/audio.mp3", "appointment-image-1",HttpMethod.GET,250);
+                appointments.getPrescription().setAudioUrl(audioUrl);
+            }
+            if(appointments.getPrescription()!=null){
+                String imgUrl = s3Service.generatePresignedUrl("appointments/" + appointments.getId() + "/prescription.jpg", "appointment-image-1",HttpMethod.GET,250);
+                appointments.getPrescription().setAudioUrl(imgUrl);
+            }
+            String imgUrl = s3Service.generatePresignedUrl("appointments/" + appointments.getId() + "/prescription.jpg", "appointment-image-1",HttpMethod.PUT,1);
+            String audioUrl = s3Service.generatePresignedUrl("appointments/" + appointments.getId() + "/audio.mp3", "appointment-image-1",HttpMethod.PUT,1);
+
+            return AppointmentResponse.builder().appointments(appointments).audioUploadUrl(audioUrl).prescriptionUploadUrl(imgUrl).build();
         }
         else{
             throw new ApplicationException(400,"no changes/updates found","no changes/updates found");

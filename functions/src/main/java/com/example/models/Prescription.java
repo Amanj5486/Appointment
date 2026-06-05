@@ -3,8 +3,10 @@ package com.example.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Prescription {
 
@@ -28,5 +32,6 @@ public class Prescription {
     String sugar;
     List<String> advice;
     List<String> diagnosis;
-    String url;
+    String audioUrl;
+    String imgUrl;
 }

@@ -15,17 +15,17 @@ public class S3Service {
     private AmazonS3 amazonS3;
 
 
-    public String generatePresignedUrl(String key,String bucketName) {
+    public String generatePresignedUrl(String key,String bucketName,HttpMethod httpMethod,int hour) {
         // Set the expiration time for the pre-signed URL
         Date expiration = new Date();
         long expTimeMillis = expiration.getTime();
-        expTimeMillis += 1000 * 60 * 60; // 1 hour
+        expTimeMillis += 1000 * 60 * 60* hour; // 1 hour
         expiration.setTime(expTimeMillis);
 
         // Generate the pre-signed URL
         GeneratePresignedUrlRequest generatePresignedUrlRequest =
                 new GeneratePresignedUrlRequest(bucketName, key)
-                        .withMethod(HttpMethod.GET)
+                        .withMethod(httpMethod)
                         .withExpiration(expiration);
 
         return amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();

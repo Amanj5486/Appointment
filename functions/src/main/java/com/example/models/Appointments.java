@@ -3,8 +3,10 @@ package com.example.models;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document("Appointments")
 @CompoundIndexes({
         @CompoundIndex(name = "unique_doctor_date_startDateTime",  def = "{'doctorId' : 1, 'startDateTime' : -1}", unique = true)
@@ -49,14 +53,14 @@ public class Appointments {
     private List<String> patientSymptoms;
     
     @JsonProperty("typed")
-    Boolean typed;
+    private Boolean typed;
 
     @JsonProperty("prescription")
-    Prescription prescription;
+    private Prescription prescription;
 
     @JsonProperty("user_location")
-    UserLocation userLocation;
+    private  UserLocation userLocation;
 
     @JsonProperty("emergency")
-    Boolean emergency;
+    private Boolean emergency;
 }

@@ -1,11 +1,11 @@
 package com.example;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.amazonaws.serverless.exceptions.ContainerInitializationException;
 import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
 import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,7 @@ import java.io.OutputStream;
  * Hello world!
  *
  */
-public class DoctorLambdaHandler implements RequestStreamHandler {
+public class AppointmentLambdaHandler implements RequestStreamHandler {
 
     private static SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
     static {
@@ -36,6 +36,7 @@ public class DoctorLambdaHandler implements RequestStreamHandler {
             throws IOException {
         handler.proxyStream(inputStream, outputStream, context);
     }
+
 }
 
 //public class HelloWorldLambda implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent>

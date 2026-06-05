@@ -11,5 +11,7 @@ public class AppointmentResponse {
     Appointments appointments;
     Double distance;
     Patient patient;
+    String audioUploadUrl;
+    String prescriptionUploadUrl;
 
 }

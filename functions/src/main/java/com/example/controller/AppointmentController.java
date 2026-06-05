@@ -50,7 +50,7 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public Appointments updateAppointment(@RequestBody  Appointments appointments){
+    public AppointmentResponse updateAppointment(@RequestBody  Appointments appointments){
 
         return appointmentService.updateAppointment(appointments);
     }
